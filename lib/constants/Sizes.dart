@@ -77,7 +77,7 @@ class TSizes {
   static const double spaceBtwButtons = 12.0;
   static const double spaceSmall = 8.0;
   static const double spaceMedium = 16.0;
-  static const double spaceLarge = 60.0;
+  static const double spaceLarge = 80.0;
 
   // Border Radius
   static const double borderRadiusSm = 4.0;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Auth/controllers/providers/services/service.dart';
 import 'package:nike_prctice/Pages/Auth/view/signupart3.dart';
 import 'package:nike_prctice/Pages/Auth/view/signuppart2.dart';
+import 'package:nike_prctice/Pages/Home/view/Maindashboard.dart';
 
 class Authprovider extends ChangeNotifier {
   // Variables
@@ -165,9 +166,12 @@ class Authprovider extends ChangeNotifier {
     try {
       final response = await PostApiServices().signin(emailcontroller.text);
       if (response['status'] == 'success') {
+        final String username = response['Firstname'] ?? '';
+        print("signined in with username:$username");
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("Signin successfull")));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Maindashboard(fetchedusername:username)));
       } else {
         errorMessage = response['message'];
       }

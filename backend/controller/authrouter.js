@@ -62,7 +62,7 @@ router.post('/signin', async (req, res) => {
         if (!data) {
             return res.status(404).json({ msg: "Enter a valid email" })
         }
-        return res.status(200).json({ status: "success"})
+        return res.status(200).json({ status: "success", Firstname: data.Firstname })
     } catch (e) {
         console.error(e);
         res.status(500).json({ message: 'Server error', e });

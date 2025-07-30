@@ -17,4 +17,8 @@ class Images {
   static const String loginpicture = 'assets/Rectangle 17770.png';
   static const String mainvector = 'assets/Vector.png';
 
+  // Home screen images
+  static const String vectorhomepage = 'assets/Vector (1).png';
+  static const String display = 'assets/Rectangle 26.png';
+
 }

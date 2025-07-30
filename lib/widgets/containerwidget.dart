@@ -12,35 +12,41 @@ Widget commonContainer({
   BorderRadiusGeometry? borderRadius,
   List<BoxShadow>? boxShadow,
   VoidCallback? onTap,
-  double? elevation
+  double? elevation,
+  BoxShape shape = BoxShape.rectangle, 
 }) {
+  final hasDecoration = color != null ||
+      backgroundImage != null ||
+      border != null ||
+      borderRadius != null ||
+      (boxShadow != null && boxShadow.isNotEmpty) ||
+      shape != BoxShape.rectangle;
+
   final container = Card(
     elevation: elevation,
+    color: Colors.transparent,
+    shadowColor: Colors.transparent,
     child: Container(
       width: width,
       height: height,
       padding: padding,
       margin: margin,
-      decoration: BoxDecoration(
-        color: color,
-        image: backgroundImage != null ? backgroundImage : null,
-        border: border,
-        borderRadius: borderRadius,
-        boxShadow: boxShadow,
-      ),
+      decoration: hasDecoration
+          ? BoxDecoration(
+              color: color,
+              image: backgroundImage,
+              border: border,
+              borderRadius: shape == BoxShape.circle ? null : borderRadius,
+              shape: shape, // Apply BoxShape
+              boxShadow: boxShadow,
+            )
+          : null,
       child: child,
     ),
   );
 
-  return onTap != null
-      ? GestureDetector(
-          onTap: onTap,
-          child: container,
-        )
-      : container;
+  return onTap != null ? GestureDetector(onTap: onTap, child: container) : container;
 }
-
-
 
 
 class CustomRadioButton extends StatelessWidget {
@@ -86,4 +92,3 @@ class CustomRadioButton extends StatelessWidget {
     );
   }
 }
-

@@ -129,15 +129,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 60),
-                Center(
-                  child: commonText(
-                    text:
-                        'Nam id elementum risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus enim non sapien ullamcorper congue.',
-                    fontSize: TSizes.fontSizeMd,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
               ],
             ),
           ),
