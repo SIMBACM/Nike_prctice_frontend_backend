@@ -1,33 +1,6 @@
 import 'package:flutter/material.dart';
-
-class CustomAlign extends StatelessWidget {
-  final AlignmentGeometry? alignment;
-  final String? imagePath;
-  final double? width;
-  final double? height;
-  final Widget? child;
-
-  const CustomAlign({
-    super.key,
-    this.alignment,
-    this.imagePath,
-    this.width,
-    this.height,
-    this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: alignment ?? Alignment.center,
-      child:
-          child ??
-          (imagePath != null
-              ? Image.asset(imagePath!, width: width, height: height)
-              : const SizedBox()),
-    );
-  }
-}
+import 'package:nike_prctice/constants/images.dart';
+import 'package:nike_prctice/widgets/containerwidget.dart';
 
 Widget productCard({
   String? imageUrl,
@@ -58,7 +31,7 @@ Widget productCard({
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  imageUrl ?? 'https://via.placeholder.com/150', 
+                  imageUrl ?? 'https://via.placeholder.com/150',
                   height: 140,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -95,15 +68,20 @@ Widget productCard({
   );
 }
 
-
 Widget lebronCard({
   String? assetImagePath,
   String? title,
+  double? fontsize,
+  FontWeight? fontWeight,
   String? subtitle,
   String? buttonText,
   VoidCallback? onTap,
   double width = 250,
   double height = 320,
+  Color? color,
+  Color? subtitlecolor,
+  FontWeight? subtitlefontweight,
+  double? subtitlefontSize,
 }) {
   return Container(
     width: width,
@@ -126,10 +104,7 @@ Widget lebronCard({
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.center,
-              colors: [
-                Colors.black.withOpacity(0.7),
-                Colors.transparent,
-              ],
+              colors: [Colors.black.withOpacity(0.7), Colors.transparent],
             ),
           ),
         ),
@@ -140,22 +115,19 @@ Widget lebronCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (subtitle != null)
+              if (title != null)
+                Text(
+                  title,
+                  style: TextStyle(color: Colors.white, fontSize: 14,fontWeight: fontWeight),
+                ),
+              if (subtitle != null) ...[
+                SizedBox(height: 4),
                 Text(
                   subtitle,
                   style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
-                ),
-              if (title != null) ...[
-                SizedBox(height: 4),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                    color: subtitlecolor,
+                    fontSize: subtitlefontSize,
+                    fontWeight: subtitlefontweight,
                   ),
                 ),
               ],
@@ -164,8 +136,8 @@ Widget lebronCard({
                 ElevatedButton(
                   onPressed: onTap,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -182,3 +154,256 @@ Widget lebronCard({
   );
 }
 
+Widget commonCard({
+  String? title,
+  String? assetImagePath,
+  double? fontSize,
+  FontWeight? fontWeight,
+  VoidCallback? onTap,
+  double? width,
+  double? height,
+  BorderRadius? borderRadius,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        image: assetImagePath != null
+            ? DecorationImage(
+                image: AssetImage(assetImagePath),
+                fit: BoxFit.cover,
+              )
+            : null,
+        color: assetImagePath == null
+            ? const Color.fromRGBO(255, 255, 255, 1)
+            : null,
+      ),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.black.withOpacity(0.4), Colors.transparent],
+              ),
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null) ...[
+                SizedBox(height: 4),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, top: 50),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                      fontWeight: fontWeight,
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget commonCard1({
+  String? title,
+  String? assetImagePath,
+  double? fontSize,
+  FontWeight? fontWeight,
+  VoidCallback? onTap,
+  double? width,
+  double? height,
+  BorderRadius? borderRadius,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: borderRadius,
+        image: assetImagePath != null
+            ? DecorationImage(
+                image: AssetImage(assetImagePath),
+                fit: BoxFit.cover,
+              )
+            : null,
+        color: assetImagePath == null
+            ? const Color.fromRGBO(255, 255, 255, 1)
+            : null,
+      ),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null) ...[
+                SizedBox(height: 4),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10, top: 50),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                      fontWeight: fontWeight,
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget commonCard2({
+  String? title,
+  String? assetImagePath,
+  double? fontSize,
+  FontWeight? fontWeight,
+  VoidCallback? onTap,
+  double? width,
+  double? height,
+  BorderRadius? borderRadius,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: borderRadius ?? BorderRadius.circular(12),
+            image: assetImagePath != null
+                ? DecorationImage(
+                    image: AssetImage(assetImagePath),
+                    fit: BoxFit.cover,
+                  )
+                : null,
+            color: assetImagePath == null ? Colors.grey.shade300 : null,
+          ),
+        ),
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 4),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: fontSize ?? 14,
+                fontWeight: fontWeight ?? FontWeight.normal,
+                color: Colors.black,
+              ),
+            ),
+          ),
+      ],
+    ),
+  );
+}
+
+class CommonHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const CommonHomeAppBar({Key? key}) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  State<CommonHomeAppBar> createState() => _CommonHomeAppBarState();
+}
+
+class _CommonHomeAppBarState extends State<CommonHomeAppBar> {
+  bool isNike = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          commonContainer(
+            width: 70,
+            height: 35,
+            onTap: () {
+              setState(() {
+                isNike = !isNike;
+              });
+            },
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(50),
+            child: Stack(
+              children: [
+                AnimatedAlign(
+                  curve: Curves.easeInOut,
+                  alignment: isNike
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
+                  duration: const Duration(milliseconds: 250),
+                  child: commonContainer(
+                    width: 34,
+                    height: 34,
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Image.asset(
+                      Images.mainvector,
+                      width: 22,
+                      height: 22,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Image.asset(
+                      Images.vectorhomepage,
+                      width: 22,
+                      height: 22,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            iconSize: 40,
+            onPressed: () {},
+            icon: const Icon(Icons.search_sharp),
+          ),
+        ],
+      ),
+    );
+  }
+}

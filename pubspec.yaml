@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.1.5
   intl: ^0.20.2
   http: ^1.4.0
+  lucide_icons_flutter: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,56 @@ flutter:
   - assets\Group 774.png
   - assets\Vector (1).png
   - assets\Rectangle 26.png
+  - assets\Rectangle 40.png
+  - assets\Rectangle 41.png
+  - assets\Rectangle 42.png
+  - assets\Rectangle 43.png
+  - assets\Rectangle 44.png
+  - assets\Rectangle 45.png
+  - assets\Rectangle 115.png
+  - assets\Rectangle 116.png
+  - assets\blue.jpg
+  - assets\green.jpg
+  - assets\shoe1.png
+  - assets\shoe2.png
+  - assets\shoe3.png
+  - assets\shoe4.png
+  - assets\shoe5.png
+  - assets\shoe6.png
+  - assets\shoe7.png
+  - assets\shoe9.jpg
+  - assets\shoe10.png
+  - assets\shoe11.png
+  - assets\Running.jpg
+  - assets\dancing.jpg
+  - assets\Football.jpg
+  - assets\Basketball.jpg
+  - assets\tennis.jpg
+  - assets\Skating.jpg
+  - assets\training.jpg
+  - assets\Yoga.jpg
+  - assets\white.jpg
+  - assets\Grey.jpg
+  - assets\Black.jpg
+  - assets\Brown.png
+  - assets\Nikebyyou.png
+  - assets\Nikelab.jpg
+  - assets\Nikeofficial.png
+  - assets\niketriangle.png
+  - assets\Jordan.jpg
+  - assets\nike.png
+  - assets\contactus.jpg
+  - assets\Customise with Nike By You.jpg
+  - assets\ultimateshoppin.jpg
+  - assets\checkorderstatus.jpg
+  - assets\Explore the Member Shop.jpg
+  - assets\stories.jpg
+  - assets\cover1.png
+  - assets\cover2.jpg
+  - assets\cover3.jpg
+  - assets\cover4.jpg
+  - assets\cover5.jpg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
