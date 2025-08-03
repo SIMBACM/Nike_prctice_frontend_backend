@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Auth/view/Loginpage.dart';
 import 'package:nike_prctice/Pages/Auth/view/signUp.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
@@ -27,17 +28,17 @@ class MainPage extends StatelessWidget {
                 SizedBox(height: 10),
                 commonText(
                   text: 'Bringing Nike Members the best',
-                  color: Colors.white,
+                  color: AppColors.secondary,
                   fontSize: 20,
                 ),
                 commonText(
                   text: 'products, inspiration and stories',
-                  color: Colors.white,
+                  color: AppColors.secondary,
                   fontSize: 20,
                 ),
                 commonText(
                   text: 'in sport.',
-                  color: Colors.white,
+                  color: AppColors.secondary,
                   fontSize: 20,
                 ),
                 SizedBox(height: TSizes.spaceBtwSections),
@@ -45,9 +46,9 @@ class MainPage extends StatelessWidget {
                   children: [
                     commonButton(
                       text: 'Signup',
-                      textColor: Colors.black,
+                      textColor: AppColors.primary,
                       fontSize: 18,
-                      backgroundColor: Colors.white,
+                      backgroundColor: AppColors.secondary,
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -58,9 +59,9 @@ class MainPage extends StatelessWidget {
                     SizedBox(width: 30),
                     commonButton(
                       text: 'Signin',
-                      backgroundColor: Colors.black,
+                      backgroundColor: AppColors.primary,
                       fontSize: 18,
-                      textColor: Colors.white,
+                      textColor: AppColors.secondary,
                       onPressed: () {
                         Navigator.push(
                           context,

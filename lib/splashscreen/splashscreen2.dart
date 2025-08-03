@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/splashscreen/splashscreen3.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
@@ -22,9 +23,7 @@ class _Splashscreen2State extends State<Splashscreen2> {
           SizedBox.expand(
             child: Image.asset(Images.splashimage, fit: BoxFit.cover),
           ),
-          Container(
-            color: Colors.black.withOpacity(0.5), // Adjust opacity as needed
-          ),
+          Container(color: AppColors.splashOverlay),
           Positioned(
             top: 150,
             left: 15,
@@ -36,7 +35,7 @@ class _Splashscreen2State extends State<Splashscreen2> {
                 SizedBox(height: 20),
                 commonText(
                   text: 'Which products do you\nuse the most?',
-                  color: Colors.white,
+                  color: AppColors.splashText,
                   fontSize: 28,
                 ),
                 SizedBox(height: 60),
@@ -80,7 +79,7 @@ class _Splashscreen2State extends State<Splashscreen2> {
                 SizedBox(height: 30),
                 commonText(
                   text: 'Any others?',
-                  color: Color(0xFF7C7C7C),
+                  color: AppColors.mutedText,
                   fontSize: 24,
                 ),
                 SizedBox(height: 30),
@@ -126,9 +125,9 @@ class _Splashscreen2State extends State<Splashscreen2> {
                   child: commonButton(
                     width: 200,
                     text: 'Next',
-                    textColor: Colors.black,
+                    textColor: AppColors.primary,
                     fontSize: 18,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.splashButtonBackground,
                     onPressed: () {
                       Navigator.push(
                         context,

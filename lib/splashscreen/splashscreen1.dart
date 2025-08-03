@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/splashscreen/splashscreen2.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
@@ -25,17 +26,17 @@ class Splashscreen1 extends StatelessWidget {
                 SizedBox(height: 10),
                 commonText(
                   text: 'To personalise your experience',
-                  color: Colors.white,
+                  color: AppColors.splashText,
                   fontSize: 20,
                 ),
                 commonText(
                   text: 'and connect you',
-                  color: Colors.white,
+                  color: AppColors.splashText,
                   fontSize: 20,
                 ),
                 commonText(
                   text: 'to sport.',
-                  color: Colors.white,
+                  color: AppColors.splashText,
                   fontSize: 20,
                 ),
                 SizedBox(height: 400),
@@ -43,13 +44,15 @@ class Splashscreen1 extends StatelessWidget {
                   width: 370,
                   child: commonButton(
                     text: 'Get Started',
-                    textColor: Colors.black,
+                    textColor: AppColors.splashButtonText,
                     fontSize: 18,
                     backgroundColor: Colors.white,
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Splashscreen2()),
+                        MaterialPageRoute(
+                          builder: (context) => Splashscreen2(),
+                        ),
                       );
                     },
                   ),

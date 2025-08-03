@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/splashscreen/splashscreen4.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
@@ -27,7 +28,7 @@ class Splashscreen3 extends StatelessWidget {
                 commonText(
                   text:
                       'Want to use location\n Services to help you \nfind the closest Nike\n Store, access in-store\n and location-based \nfeatures, and see \nexperiences near you?',
-                  color: Colors.white,
+                  color: AppColors.secondary,
                   fontSize: 28,
                 ),
                 SizedBox(height: 400),
@@ -35,9 +36,9 @@ class Splashscreen3 extends StatelessWidget {
                   child: commonButton(
                     width: 200,
                     text: 'Next',
-                    textColor: Colors.black,
+                    textColor: AppColors.primary,
                     fontSize: 18,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.secondary,
                     onPressed: () {
                       Navigator.push(
                         context,

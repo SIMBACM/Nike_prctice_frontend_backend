@@ -15,7 +15,21 @@ class Dasboardprovider extends ChangeNotifier {
   Future<void> loadproducts() async {
     try {
       final data = await ProductApiServices().fetchProducts();
-      print('Fetched ${data.length} products'); // 👈 add this
+      print('Fetched ${data.length} products');
+      products = data;
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      print('Error fetching products:$e');
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadwomenproducts() async {
+    try {
+      final data = await ProductApiServices().fetchwomenProducts();
+      print('Fetched ${data.length} products');
       products = data;
       isLoading = false;
       notifyListeners();

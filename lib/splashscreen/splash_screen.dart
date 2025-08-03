@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Auth/view/main_page.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 27, 0, 73),
+      backgroundColor: AppColors.splashBackground,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

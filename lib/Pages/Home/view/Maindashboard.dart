@@ -49,7 +49,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   fontWeight: TSizes.semiBold,
                 ),
               ),
-              SizedBox(height: TSizes.spaceBtwSections),
+              SizedBox(height: TSizes.defaultSpace),
               Row(
                 children: [
                   Container(
@@ -81,8 +81,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   fontWeight: TSizes.regular,
                 ),
               ),
-              SizedBox(height: TSizes.spaceLarge),
-
+              SizedBox(height: TSizes.defaultSpace),
               // Api calling
               dasboadmodel.isLoading
                   ? CircularProgressIndicator()
@@ -99,7 +98,7 @@ class _MaindashboardState extends State<Maindashboard> {
                         }).toList(),
                       ),
                     ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               Row(
                 children: [
                   Container(
@@ -121,7 +120,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   ),
                 ],
               ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
@@ -186,7 +185,7 @@ class _MaindashboardState extends State<Maindashboard> {
                 subtitlecolor: Colors.white,
                 subtitlefontSize: 28,
               ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 60),
@@ -200,7 +199,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   ],
                 ),
               ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -223,7 +222,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   ],
                 ),
               ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 60),
@@ -292,7 +291,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   fontWeight: TSizes.regular,
                 ),
               ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               dasboadmodel.isLoading
                   ? CircularProgressIndicator()
                   : SingleChildScrollView(
@@ -308,7 +307,7 @@ class _MaindashboardState extends State<Maindashboard> {
                         }).toList(),
                       ),
                     ),
-              SizedBox(height: TSizes.spaceLarge),
+              SizedBox(height: TSizes.defaultSpace),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 60),

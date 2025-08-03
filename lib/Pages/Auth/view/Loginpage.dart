@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Auth/controllers/providers/authprovider.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/validations/validation.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
@@ -35,29 +36,31 @@ class _LoginPageState extends State<LoginPage> {
                   text: "Signin with email",
                   fontSize: TSizes.lg,
                   fontWeight: TSizes.bold,
+                  color: AppColors.primary,
                 ),
                 SizedBox(height: TSizes.defaultSpace),
                 commonText(
                   text: "Welcome to Nike family",
                   fontSize: TSizes.md,
                   fontWeight: FontWeight.w400,
+                  color: AppColors.primary,
                 ),
                 SizedBox(height: TSizes.spaceBtwSections),
                 commonTextFormField(
                   labelText: "Email",
                   controller: loginmodl.emailcontroller,
                   validator: validateEmail,
-                  textStyle: TextStyle(color: Colors.black),
+                  textStyle: TextStyle(color: AppColors.primary),
                   hintText: "Enter the email",
                   prefixIcon: Icon(Icons.email),
                   suffixIcon: Icon(
                     Icons.check_circle,
                     size: 30,
-                    color: Colors.green,
+                    color: AppColors.validIconGreen,
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(TSizes.buttonRadius),
-                    borderSide: BorderSide(color: Colors.green),
+                    borderSide: BorderSide(color: AppColors.validIconGreen),
                   ),
                 ),
                 SizedBox(height: TSizes.spaceBtwInputFields),
@@ -65,11 +68,11 @@ class _LoginPageState extends State<LoginPage> {
                   width: TSizes.buttonWidth,
                   child: commonButton(
                     text: 'Continue',
-                    textColor: Colors.white,
+                    textColor: AppColors.secondary,
                     onPressed: () {
                       loginmodl.sendvaluestosigninapi(context);
                     },
-                    backgroundColor: Color(0xFF130329),
+                    backgroundColor: AppColors.authButtonBackground,
                   ),
                 ),
                 SizedBox(height: TSizes.spaceBtwSections),
@@ -82,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: commonText(
                         text: 'or continue with',
-                        color: Colors.grey,
+                        color: AppColors.grey,
                       ),
                     ),
                     Expanded(
@@ -97,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     commonContainer(
                       height: TSizes.containerHeightMd,
                       width: 100,
-                      color: Colors.white,
+                      color: AppColors.secondary,
                       elevation: 2,
                       borderRadius: BorderRadius.circular(TSizes.buttonRadius),
                       backgroundImage: DecorationImage(
@@ -108,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                     commonContainer(
                       height: TSizes.containerHeightMd,
                       width: 100,
-                      color: Colors.white,
+                      color: AppColors.secondary,
                       elevation: 2,
                       borderRadius: BorderRadius.circular(TSizes.buttonRadius),
                       backgroundImage: DecorationImage(
@@ -119,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     commonContainer(
                       height: TSizes.containerHeightMd,
                       width: 100,
-                      color: Colors.white,
+                      color: AppColors.secondary,
                       elevation: 2,
                       borderRadius: BorderRadius.circular(TSizes.buttonRadius),
                       backgroundImage: DecorationImage(

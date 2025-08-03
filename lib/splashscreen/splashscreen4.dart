@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/splashscreen/splash_screen.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
@@ -26,7 +27,7 @@ class Splashscreen4 extends StatelessWidget {
                 SizedBox(height: 10),
                 commonText(
                   text: 'Get personalised ads\n by enabling app\n traking',
-                  color: Colors.white,
+                  color: AppColors.secondary,
                   fontSize: 28,
                 ),
                 SizedBox(height: 20),
@@ -40,7 +41,7 @@ class Splashscreen4 extends StatelessWidget {
                           text:
                               'Get personalised Nike ads on partner\nplatforms based on your app activity',
                           fontSize: 17,
-                          color: Colors.white,
+                          color: AppColors.secondary,
                         ),
                       ],
                     ),
@@ -53,7 +54,7 @@ class Splashscreen4 extends StatelessWidget {
                           text:
                               'On the next prompt, if you select\n “Ask App Not to Track”, you may see \nless relevant Nike ads.',
                           fontSize: 17,
-                          color: Colors.white,
+                          color: AppColors.secondary,
                         ),
                       ],
                     ),
@@ -64,9 +65,9 @@ class Splashscreen4 extends StatelessWidget {
                   onPressed: () {},
                   text: 'Learn more',
                   fontSize: 16,
-                  textColor: Colors.white,
+                  textColor: AppColors.secondary,
                   underline: true,
-                  underlineColor: Colors.white,
+                  underlineColor: AppColors.secondary,
                 ),
                 SizedBox(height: 70),
                 commonText(
@@ -79,9 +80,9 @@ class Splashscreen4 extends StatelessWidget {
                   child: commonButton(
                     width: 200,
                     text: 'Next',
-                    textColor: Colors.black,
+                    textColor: AppColors.primary,
                     fontSize: 18,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.secondary,
                     onPressed: () {
                       Navigator.push(
                         context,

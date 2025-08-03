@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/widgets.dart';
-import 'package:nike_prctice/Pages/Home/view/shopkids.dart';
-import 'package:nike_prctice/Pages/Home/view/shopwomen.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/widgets/bottomnavigationbutton.dart';
@@ -18,6 +16,15 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () =>
+          Provider.of<Dasboardprovider>(context, listen: false).loadproducts(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Dasboardprovider>(
@@ -41,17 +48,16 @@ class _ShopState extends State<Shop> {
                 child: Row(
                   children: [
                     commonTextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        shopmodel.loadproducts();
+                      },
                       text: 'Men',
                       textColor: Colors.black,
                       fontSize: 16,
                     ),
                     commonTextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => Shopwomen()),
-                        );
+                        shopmodel.loadwomenproducts();
                       },
                       text: 'Women',
                       textColor: Colors.black,
@@ -59,10 +65,7 @@ class _ShopState extends State<Shop> {
                     ),
                     commonTextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => Shopkids()),
-                        );
+                        shopmodel.loadproducts();
                       },
                       text: 'Kids',
                       textColor: Colors.black,
@@ -297,28 +300,21 @@ class _ShopState extends State<Shop> {
                 child: commonText(text: "Simplify Your Style", fontSize: 20),
               ),
               SizedBox(height: TSizes.defaultSpace),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    shopmodel.isLoading
-                        ? CircularProgressIndicator()
-                        : SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: shopmodel.products.map((product) {
-                                return productCard(
-                                  imageUrl: product.thumbnail,
-                                  title: product.title,
-                                  price: product.price.toString(),
-                                  onTap: () {},
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                  ],
-                ),
-              ),
+              shopmodel.isLoading
+                  ? CircularProgressIndicator()
+                  : SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: shopmodel.products.map((product) {
+                          return productCard(
+                            imageUrl: product.thumbnail,
+                            title: product.title,
+                            price: product.price.toString(),
+                            onTap: () {},
+                          );
+                        }).toList(),
+                      ),
+                    ),
               SizedBox(height: TSizes.defaultSpace),
               Container(
                 padding: EdgeInsets.only(left: 16, right: 15),
@@ -470,28 +466,21 @@ class _ShopState extends State<Shop> {
                 child: commonText(text: "Our Best Sellers", fontSize: 20),
               ),
               SizedBox(height: TSizes.defaultSpace),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    shopmodel.isLoading
-                        ? CircularProgressIndicator()
-                        : SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: shopmodel.products.map((product) {
-                                return productCard(
-                                  imageUrl: product.thumbnail,
-                                  title: product.title,
-                                  price: product.price.toString(),
-                                  onTap: () {},
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                  ],
-                ),
-              ),
+              shopmodel.isLoading
+                  ? CircularProgressIndicator()
+                  : SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: shopmodel.products.map((product) {
+                          return productCard(
+                            imageUrl: product.thumbnail,
+                            title: product.title,
+                            price: product.price.toString(),
+                            onTap: () {},
+                          );
+                        }).toList(),
+                      ),
+                    ),
               SizedBox(height: TSizes.defaultSpace),
               Center(
                 child: commonButton(
