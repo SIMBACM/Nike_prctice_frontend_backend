@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/Pages/Home/view/favourites.dart';
 import 'package:nike_prctice/Pages/Home/view/shop.dart';
 
-Widget commonBottomNavigationBar(BuildContext context, Dasboardprovider shopmodel) {
+Widget commonBottomNavigationBar(
+  BuildContext context,
+  Dasboardprovider shopmodel,
+) {
   return BottomNavigationBar(
     currentIndex: shopmodel.currentindex,
     onTap: (value) {
@@ -19,7 +23,10 @@ Widget commonBottomNavigationBar(BuildContext context, Dasboardprovider shopmode
           );
           break;
         case 2:
-          Navigator.pushReplacementNamed(context, '/wishlist');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Favourites()),
+          );
           break;
         case 3:
           Navigator.pushReplacementNamed(context, '/cart');
@@ -40,9 +47,15 @@ Widget commonBottomNavigationBar(BuildContext context, Dasboardprovider shopmode
     elevation: 8.0,
     items: const [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      BottomNavigationBarItem(icon: Icon(LucideIcons.shoppingBag), label: 'Bag'),
+      BottomNavigationBarItem(
+        icon: Icon(LucideIcons.shoppingBag),
+        label: 'Bag',
+      ),
       BottomNavigationBarItem(icon: Icon(LucideIcons.heart), label: 'Wishlist'),
-      BottomNavigationBarItem(icon: Icon(LucideIcons.shoppingCart), label: 'Cart'),
+      BottomNavigationBarItem(
+        icon: Icon(LucideIcons.shoppingCart),
+        label: 'Cart',
+      ),
       BottomNavigationBarItem(icon: Icon(LucideIcons.user), label: 'Profile'),
     ],
   );

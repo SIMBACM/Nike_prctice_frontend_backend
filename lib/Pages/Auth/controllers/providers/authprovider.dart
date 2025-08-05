@@ -3,6 +3,8 @@ import 'package:nike_prctice/Pages/Auth/controllers/providers/services/service.d
 import 'package:nike_prctice/Pages/Auth/view/signupart3.dart';
 import 'package:nike_prctice/Pages/Auth/view/signuppart2.dart';
 import 'package:nike_prctice/Pages/Home/view/Maindashboard.dart';
+import 'package:nike_prctice/constants/colors.dart';
+import 'package:nike_prctice/utils/commonutils.dart';
 
 class Authprovider extends ChangeNotifier {
   // Variables
@@ -168,15 +170,28 @@ class Authprovider extends ChangeNotifier {
       if (response['status'] == 'success') {
         final String username = response['Firstname'] ?? '';
         print("signined in with username:$username");
-        ScaffoldMessenger.of(
+        MessengerUtil.showSnackBar(
           context,
-        ).showSnackBar(SnackBar(content: Text("Signin successfull")));
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Maindashboard(fetchedusername:username)));
+          'Signin Successfully',
+          duration: Duration(seconds: 3),
+          backgroundColor: AppColors.validIconGreen,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Maindashboard(fetchedusername: username),
+          ),
+        );
       } else {
         errorMessage = response['message'];
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$e")));
+      MessengerUtil.showSnackBar(
+        context,
+        '$e',
+        duration: Duration(seconds: 3),
+        backgroundColor: AppColors.accent,
+      );
     }
     notifyListeners();
   }
@@ -189,9 +204,12 @@ class Authprovider extends ChangeNotifier {
       final response = await PostApiServices().emailotpsend(useremail);
       if (response['status'] == 'success') {
         print("User signed in successfully with name: $useremail");
-        ScaffoldMessenger.of(
+        MessengerUtil.showSnackBar(
           context,
-        ).showSnackBar(SnackBar(content: Text("OTP send via Email")));
+          'OTP send via Email',
+          duration: Duration(seconds: 3),
+          backgroundColor: AppColors.validIconGreen,
+        );
 
         Navigator.push(
           context,
@@ -203,7 +221,12 @@ class Authprovider extends ChangeNotifier {
         errorMessage = response['message'];
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$e")));
+      MessengerUtil.showSnackBar(
+        context,
+        '$e',
+        duration: Duration(seconds: 3),
+        backgroundColor: AppColors.accent,
+      );
     }
     notifyListeners();
   }
@@ -216,14 +239,20 @@ class Authprovider extends ChangeNotifier {
   ) async {
     final formState = key.currentState;
     if (formState != null && formState.validate()) {
-      ScaffoldMessenger.of(
+      MessengerUtil.showSnackBar(
         context,
-      ).showSnackBar(SnackBar(content: Text("Validtion successfull")));
+        'Validation Sucessfull',
+        duration: Duration(seconds: 3),
+        backgroundColor: AppColors.validIconGreen,
+      );
       return true;
     } else {
-      ScaffoldMessenger.of(
+      MessengerUtil.showSnackBar(
         context,
-      ).showSnackBar(SnackBar(content: Text("Validtion failed")));
+        'Validation Failed',
+        duration: Duration(seconds: 3),
+        backgroundColor: AppColors.accent,
+      );
       return false;
     }
   }

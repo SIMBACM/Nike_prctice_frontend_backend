@@ -3,11 +3,9 @@ let mongoose = require('mongoose')
 let AuthSchema = mongoose.Schema({
     Firstname: {
         type: String,
-        // required: true,
     },
     Lastname: {
         type: String,
-        // required: true,
     },
 
     Email: {

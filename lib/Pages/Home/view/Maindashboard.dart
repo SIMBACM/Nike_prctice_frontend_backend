@@ -92,8 +92,21 @@ class _MaindashboardState extends State<Maindashboard> {
                           return productCard(
                             imageUrl: product.thumbnail,
                             title: product.title,
+                            subtitle: product.category,
                             price: product.price.toString(),
+                            isFavorite: product.isFavorite,
                             onTap: () {},
+                            onPressed: () {
+                              dasboadmodel.toggleFavoriteStatus(product);
+                              dasboadmodel.sendvaluestofavapi(
+                                context,
+                                product.title,
+                                product.category,
+                                product.price.toString(),
+                                product.thumbnail,
+                                product.isFavorite
+                              );
+                            },
                           );
                         }).toList(),
                       ),
@@ -164,9 +177,7 @@ class _MaindashboardState extends State<Maindashboard> {
                         subtitlefontSize: 28,
                       ),
                       SizedBox(width: TSizes.defaultSpace),
-                      lebronCard(
-                        assetImagePath: Images.cover3,
-                      ),
+                      lebronCard(assetImagePath: Images.cover3),
                     ],
                   ),
                 ),

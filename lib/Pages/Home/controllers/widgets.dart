@@ -8,6 +8,8 @@ Widget productCard({
   String? subtitle,
   String? price,
   VoidCallback? onTap,
+  VoidCallback? onPressed,
+  bool isFavorite = false,
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -38,9 +40,9 @@ Widget productCard({
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.favorite_border),
-                onPressed: () {},
-                color: Colors.white,
+                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                color: isFavorite ? Colors.amber : Colors.red,
+                onPressed: onPressed,
               ),
             ],
           ),
@@ -118,7 +120,11 @@ Widget lebronCard({
               if (title != null)
                 Text(
                   title,
-                  style: TextStyle(color: Colors.white, fontSize: 14,fontWeight: fontWeight),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: fontWeight,
+                  ),
                 ),
               if (subtitle != null) ...[
                 SizedBox(height: 4),
