@@ -44,7 +44,8 @@ class _FavouritesState extends State<Favourites> {
                       subtitle: fav.category,
                       price: fav.price.toString(),
                       isFavorite: fav.isFavorite,
-                      onTap: () {},
+                      onTap: () {
+                      },
                       onPressed: () {
                         favmodel.toggleFavoriteStatus(fav);
                         favmodel.sendvaluestofavapi(

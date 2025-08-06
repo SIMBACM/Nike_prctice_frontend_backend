@@ -29,7 +29,7 @@ class TSizes {
 
   // Font Sizes
   static const double fontSizeSm = 14.0;
-  static const double fontSizeMd = 16.0;
+  static const double fontSizeMd = 18.0;
   static const double fontSizeLg = 20.0;
 
   // width sizes
@@ -88,7 +88,7 @@ class TSizes {
   static const double dividerHeight = 1.0;
 
   // Product Item Dimensions
-  static const double productImageSize = 120.0;
+  static const double productImageSize = 300.0;
   static const double productImageRadius = 16.0;
   static const double productItemHeight = 160.0;
 

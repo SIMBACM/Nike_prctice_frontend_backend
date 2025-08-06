@@ -19,7 +19,7 @@ Widget commonBottomNavigationBar(
         case 1:
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Shop()),
+            MaterialPageRoute(builder: (context) =>  Shop()),
           );
           break;
         case 2:

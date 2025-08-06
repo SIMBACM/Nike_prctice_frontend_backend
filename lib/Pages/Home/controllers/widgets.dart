@@ -16,7 +16,7 @@ Widget productCard({
     child: Container(
       width: 160,
       margin: EdgeInsets.symmetric(horizontal: 12),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -169,58 +169,67 @@ Widget commonCard({
   double? width,
   double? height,
   BorderRadius? borderRadius,
+  Alignment? alignment,
+  Color? textColor,
 }) {
   return GestureDetector(
     onTap: onTap,
-    child: Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        image: assetImagePath != null
-            ? DecorationImage(
-                image: AssetImage(assetImagePath),
-                fit: BoxFit.cover,
-              )
-            : null,
-        color: assetImagePath == null
-            ? const Color.fromRGBO(255, 255, 255, 1)
-            : null,
-      ),
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.black.withOpacity(0.4), Colors.transparent],
+    child: Material(
+      elevation: 1,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          image: assetImagePath != null
+              ? DecorationImage(
+                  image: AssetImage(assetImagePath),
+                  fit: BoxFit.cover,
+                )
+              : null,
+          color: assetImagePath == null
+              ? const Color.fromRGBO(255, 255, 255, 1)
+              : null,
+        ),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    const Color.fromARGB(255, 255, 255, 255).withOpacity(0.4),
+                    const Color.fromARGB(0, 255, 255, 255),
+                  ],
+                ),
               ),
             ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (title != null) ...[
-                SizedBox(height: 4),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 10, top: 50),
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: fontSize,
-                      fontWeight: fontWeight,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (title != null) ...[
+                  SizedBox(height: 4),
+                  Container(
+                    alignment: alignment ?? Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 10, top: 30),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: textColor ?? Colors.white,
+                        fontSize: fontSize,
+                        fontWeight: fontWeight,
+                      ),
                     ),
                   ),
-                ),
+                ],
               ],
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     ),
   );
@@ -328,6 +337,95 @@ Widget commonCard2({
           ),
       ],
     ),
+  );
+}
+
+
+
+Widget productImageSliderCard({
+  List<String>? imageUrls,
+  VoidCallback? onAddToCart,
+  VoidCallback? onShare,
+  double height = 300,
+  double borderRadius = 20,
+}) {
+  final pageController = PageController();
+  final currentPageNotifier = ValueNotifier<int>(0);
+  final List<String> urls = imageUrls ?? [];
+
+  return ValueListenableBuilder<int>(
+    valueListenable: currentPageNotifier,
+    builder: (context, currentPage, _) {
+      return Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(borderRadius),
+            child: SizedBox(
+              height: height,
+              width: double.infinity,
+              child: PageView.builder(
+                controller: pageController,
+                itemCount: urls.length,
+                onPageChanged: (index) {
+                  currentPageNotifier.value = index;
+                },
+                itemBuilder: (context, index) {
+                  return Image.network(
+                    urls[index],
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  );
+                },
+              ),
+            ),
+          ),
+          Positioned(
+            top: 20,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(urls.length, (index) {
+                final isActive = currentPage == index;
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: isActive ? 10 : 8,
+                  height: isActive ? 10 : 8,
+                  decoration: BoxDecoration(
+                    color: isActive ? Colors.black : Colors.grey[400],
+                    shape: BoxShape.circle,
+                  ),
+                );
+              }),
+            ),
+          ),
+
+          // Cart and Share Buttons
+          Positioned(
+            top: 10,
+            right: 10,
+            child: Column(
+              children: [
+                FloatingActionButton.small(
+                  heroTag: null,
+                  onPressed: onAddToCart,
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+                ),
+                const SizedBox(height: 10),
+                FloatingActionButton.small(
+                  heroTag: null,
+                  onPressed: onShare,
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.share_outlined, color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    },
   );
 }
 

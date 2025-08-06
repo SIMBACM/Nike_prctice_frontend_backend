@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/widgets.dart';
+import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
+import 'package:nike_prctice/Pages/Home/view/productdetailspage.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/widgets/bottomnavigationbutton.dart';
@@ -10,7 +12,8 @@ import 'package:provider/provider.dart';
 
 class Maindashboard extends StatefulWidget {
   final String? fetchedusername;
-  const Maindashboard({super.key, this.fetchedusername});
+  final Welcome? product;
+  const Maindashboard({super.key, this.fetchedusername, this.product});
 
   @override
   State<Maindashboard> createState() => _MaindashboardState();
@@ -95,7 +98,15 @@ class _MaindashboardState extends State<Maindashboard> {
                             subtitle: product.category,
                             price: product.price.toString(),
                             isFavorite: product.isFavorite,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      Productdetailspage(product: product),
+                                ),
+                              );
+                            },
                             onPressed: () {
                               dasboadmodel.toggleFavoriteStatus(product);
                               dasboadmodel.sendvaluestofavapi(
@@ -104,7 +115,7 @@ class _MaindashboardState extends State<Maindashboard> {
                                 product.category,
                                 product.price.toString(),
                                 product.thumbnail,
-                                product.isFavorite
+                                product.isFavorite,
                               );
                             },
                           );
@@ -225,7 +236,16 @@ class _MaindashboardState extends State<Maindashboard> {
                                   imageUrl: product.thumbnail,
                                   title: product.title,
                                   price: product.price.toString(),
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => Productdetailspage(
+                                          product: product,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 );
                               }).toList(),
                             ),
@@ -277,7 +297,15 @@ class _MaindashboardState extends State<Maindashboard> {
                             imageUrl: product.thumbnail,
                             title: product.title,
                             price: product.price.toString(),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      Productdetailspage(product: product),
+                                ),
+                              );
+                            },
                           );
                         }).toList(),
                       ),
@@ -313,7 +341,15 @@ class _MaindashboardState extends State<Maindashboard> {
                             imageUrl: product.thumbnail,
                             title: product.title,
                             price: product.price.toString(),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      Productdetailspage(product: product),
+                                ),
+                              );
+                            },
                           );
                         }).toList(),
                       ),
@@ -350,7 +386,15 @@ class _MaindashboardState extends State<Maindashboard> {
                             title: product.title,
                             price: product.price.toString(),
                             subtitle: product.title,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      Productdetailspage(product: product),
+                                ),
+                              );
+                            },
                           );
                         }).toList(),
                       ),
@@ -363,7 +407,10 @@ class _MaindashboardState extends State<Maindashboard> {
             ],
           ),
         ),
-        bottomNavigationBar: commonBottomNavigationBar(context, dasboadmodel),
+        bottomNavigationBar: commonBottomNavigationBar(
+          context,
+          dasboadmodel,
+        ),
       ),
     );
   }

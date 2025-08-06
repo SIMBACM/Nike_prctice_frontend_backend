@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/widgets.dart';
+import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/widgets/bottomnavigationbutton.dart';
@@ -9,7 +10,8 @@ import 'package:nike_prctice/widgets/textwidget.dart';
 import 'package:provider/provider.dart';
 
 class Shop extends StatefulWidget {
-  const Shop({super.key});
+  final Welcome? product;
+  const Shop({super.key, this.product});
 
   @override
   State<Shop> createState() => _ShopState();
