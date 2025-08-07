@@ -1,0 +1,211 @@
+import 'package:flutter/material.dart';
+import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/constants/Sizes.dart';
+import 'package:nike_prctice/constants/colors.dart';
+import 'package:nike_prctice/constants/images.dart';
+import 'package:nike_prctice/validations/validation.dart';
+import 'package:nike_prctice/widgets/buttonwidgets.dart';
+import 'package:nike_prctice/widgets/containerwidget.dart';
+import 'package:nike_prctice/widgets/textfieldwidgets.dart';
+import 'package:nike_prctice/widgets/textwidget.dart';
+import 'package:provider/provider.dart';
+
+class Addresspage extends StatelessWidget {
+  const Addresspage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    return Consumer<Dasboardprovider>(
+      builder: (context, addressmodel, child) => Form(
+        key: _formKey,
+        child: Scaffold(
+          appBar: AppBar(
+            title: commonText(
+              text: 'Address',
+              fontSize: TSizes.fontSizeMd,
+              fontWeight: TSizes.regular,
+            ),
+          ),
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: TSizes.spaceMedium),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    tappableImage(
+                      imagePath: Images.address,
+                      width: 59,
+                      height: 47,
+                      onTap: () {},
+                      fit: BoxFit.contain,
+                    ),
+                    tappableImage(
+                      imagePath: Images.ordersummary,
+                      width: 96,
+                      height: 47,
+                      onTap: () {},
+                      fit: BoxFit.contain,
+                    ),
+                    tappableImage(
+                      imagePath: Images.payment,
+                      width: 54,
+                      height: 47,
+                      onTap: () {},
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
+                SizedBox(height: TSizes.defaultSpace),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      commonTextFormField(
+                        labelText: "Full Name (Required)*",
+                        hintText: 'Full Name (Required)*',
+                        controller: addressmodel.fullname,
+                        validator: validateFullName,
+                      ),
+                      SizedBox(height: TSizes.spaceBtwInputFields),
+                      commonTextFormField(
+                        labelText: "Phone number (Required)*",
+                        hintText: 'Phone number (Required)*',
+                        controller: addressmodel.phonenumber,
+                        validator: validatePhoneNumber,
+                      ),
+                      SizedBox(height: TSizes.spaceBtwInputFields),
+                      commonTextFormField(
+                        labelText: "Alternate phone number",
+                        hintText: 'Alternate phone number',
+                        controller: addressmodel.alternatephnonenumber,
+                      ),
+                      SizedBox(height: TSizes.spaceBtwInputFields),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: 185,
+                            child: commonTextFormField(
+                              labelText: "Pincode (Required)*",
+                              hintText: 'Pincode (Required)*',
+                              controller: addressmodel.pincode,
+                              validator: validatePincode,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 185,
+                            child: commonTextFormField(
+                              labelText: "State (Required)*",
+                              hintText: 'State (Required)*',
+                              controller: addressmodel.state,
+                              validator: validateState,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: TSizes.spaceBtwInputFields),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: 185,
+                            child: commonTextFormField(
+                              labelText: "City (Required)*",
+                              hintText: 'City (Required)*',
+                              controller: addressmodel.city,
+                              validator: validateCity,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 185,
+                            child: commonTextFormField(
+                              labelText: "Landmark(Required)*",
+                              hintText: 'Landmark(Required)*',
+                              controller: addressmodel.landmark,
+                              validator: validateLandmark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: TSizes.spaceBtwInputFields),
+                      commonTextFormField(
+                        labelText: "House No., Building Name (Required)*",
+                        hintText: 'House No., Building Name (Required)*',
+                        controller: addressmodel.houseno,
+                        validator: validateHouseNumber,
+                      ),
+                      SizedBox(height: TSizes.spaceBtwInputFields),
+                      commonTextFormField(
+                        labelText: "Road name, Area, Colony (Required)*",
+                        hintText: 'Road name, Area, Colony (Required)*',
+                        controller: addressmodel.area,
+                        validator: validateRoadAreaColony,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Column(
+                    children: [
+                      commonText(
+                        text: 'Type of address',
+                        fontSize: TSizes.fontSizeSm,
+                        fontWeight: TSizes.regular,
+                        color: AppColors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: TSizes.spaceBtwInputFields),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 120,
+                        child: commonButton(
+                          prefixIcon: Icon(Icons.home),
+                          text: 'Home',
+                          textColor: AppColors.grey,
+                          backgroundColor: AppColors.secondary,
+                        ),
+                      ),
+                      SizedBox(width: TSizes.defaultSpace),
+                      SizedBox(
+                        width: 120,
+                        child: commonButton(
+                          prefixIcon: Icon(Icons.apartment),
+                          text: 'Work',
+                          textColor: AppColors.grey,
+                          backgroundColor: AppColors.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: TSizes.spaceBtwInputFields),
+                Container(
+                  alignment: Alignment.center,
+                  child: commonButton(
+                    text: 'Save',
+                    width: 300,
+                    backgroundColor: AppColors.primary,
+                    onPressed: () {
+                      addressmodel.validateall(context, _formKey);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

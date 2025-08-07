@@ -3,7 +3,9 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
 import 'package:nike_prctice/Pages/Home/view/favourites.dart';
+import 'package:nike_prctice/Pages/Home/view/profile.dart';
 import 'package:nike_prctice/Pages/Home/view/shop.dart';
+import 'package:nike_prctice/utils/commonutils.dart';
 
 Widget commonBottomNavigationBar(
   BuildContext context,
@@ -30,13 +32,10 @@ Widget commonBottomNavigationBar(
           );
           break;
         case 3:
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => Bagpage()),
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Bagpage()));
           break;
         case 4:
-          Navigator.pushReplacementNamed(context, '/profile');
+          NavigationUtil.push(context, Profile());
           break;
       }
     },

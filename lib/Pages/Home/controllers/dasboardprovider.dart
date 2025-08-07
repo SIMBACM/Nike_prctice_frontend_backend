@@ -6,6 +6,7 @@ import 'package:nike_prctice/Pages/Home/controllers/services/homeapi.dart';
 
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
+import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -18,6 +19,15 @@ class Dasboardprovider extends ChangeNotifier {
   bool isLoading = true;
   int currentindex = 0;
   final List<String> quantity = ['1', '2', '3', '4', '5'];
+  TextEditingController fullname = TextEditingController();
+  TextEditingController phonenumber = TextEditingController();
+  TextEditingController alternatephnonenumber = TextEditingController();
+  TextEditingController pincode = TextEditingController();
+  TextEditingController state = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController landmark = TextEditingController();
+  TextEditingController houseno = TextEditingController();
+  TextEditingController area = TextEditingController();
 
   // update quantity function
   void updateQty(int index, String? qty) {
@@ -176,9 +186,8 @@ class Dasboardprovider extends ChangeNotifier {
 
   Future<void> shareProduct(
     BuildContext context,
-    String
-    urlToShare, 
-    String imageUrl, 
+    String urlToShare,
+    String imageUrl,
   ) async {
     try {
       final response = await http.get(Uri.parse(imageUrl));
@@ -186,15 +195,10 @@ class Dasboardprovider extends ChangeNotifier {
       if (response.statusCode == 200) {
         final bytes = response.bodyBytes;
         final tempDir = await getTemporaryDirectory();
-        final file = File(
-          '${tempDir.path}/shared_image.jpg',
-        );
+        final file = File('${tempDir.path}/shared_image.jpg');
         await file.writeAsBytes(bytes);
 
-        await Share.shareXFiles(
-          [XFile(file.path)],
-          text: urlToShare, 
-        );
+        await Share.shareXFiles([XFile(file.path)], text: urlToShare);
       } else {
         ScaffoldMessenger.of(
           context,
@@ -204,6 +208,32 @@ class Dasboardprovider extends ChangeNotifier {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Error sharing: $e')));
+    }
+  }
+
+  // Validation
+
+  Future<bool> validateall(
+    BuildContext context,
+    GlobalKey<FormState> key,
+  ) async {
+    final formState = key.currentState;
+    if (formState != null && formState.validate()) {
+      MessengerUtil.showSnackBar(
+        context,
+        'Validation Sucessfull',
+        duration: Duration(seconds: 3),
+        backgroundColor: AppColors.validIconGreen,
+      );
+      return true;
+    } else {
+      MessengerUtil.showSnackBar(
+        context,
+        'Validation Failed',
+        duration: Duration(seconds: 3),
+        backgroundColor: AppColors.accent,
+      );
+      return false;
     }
   }
 }

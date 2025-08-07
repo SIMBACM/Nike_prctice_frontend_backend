@@ -17,6 +17,7 @@ Widget commonTextFormField({
   InputBorder? enabledBorder,
   int maxLines = 1,
   bool readOnly = false,
+  bool showCursor = true,
   VoidCallback? onTap,
 }) {
   return TextFormField(
@@ -26,6 +27,7 @@ Widget commonTextFormField({
     validator: validator,
     maxLines: maxLines,
     readOnly: readOnly,
+    showCursor: showCursor,
     onTap: onTap,
     style: textStyle,
     decoration: InputDecoration(

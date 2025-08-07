@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/Pages/Home/view/addresspage.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
+import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
 import 'package:nike_prctice/widgets/commondropdown.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
@@ -203,7 +205,9 @@ class _BagpageState extends State<Bagpage> {
                     textColor: AppColors.secondary,
                     backgroundColor: AppColors.primary,
                     width: 336,
-                    onPressed: () {},
+                    onPressed: () {
+                      NavigationUtil.push(context, Addresspage());
+                    },
                   ),
                   SizedBox(height: 100),
                 ],

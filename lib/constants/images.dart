@@ -70,4 +70,18 @@ class Images {
   static const String checkorder = 'assets/checkorderstatus.jpg';
   static const String explore = 'assets/Explore the Member Shop.jpg';
   static const String ultimate = 'assets/ultimateshoppin.jpg';
+
+  // Address images
+  static const String address = 'assets/Group 619.png';
+  static const String ordersummary = 'assets/Group 617.png';
+  static const String payment = 'assets/Group 618.png';
+
+  // Profile images
+  static const String circleavatar = 'assets/Ellipse 6.png';
+  static const String orders = 'assets/Group 571.png';
+  static const String pass = 'assets/Group 572.png';
+  static const String events = 'assets/Group 573.png';
+  static const String settings1 = 'assets/Group 574.png';
+  static const String bar = 'assets/Rectangle 148.png';
+  static const String barhorizontal = 'assets/Rectangle 134.png';
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:nike_prctice/Pages/Auth/controllers/providers/authprovider.dart';
+import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/images.dart';
 import 'package:nike_prctice/validations/validation.dart';

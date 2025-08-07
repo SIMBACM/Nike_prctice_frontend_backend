@@ -432,3 +432,106 @@ Widget commonCard2({
     ),
   );
 }
+
+Widget tappableImage({
+  required String imagePath,
+  VoidCallback? onTap,
+  double? width,
+  double? height,
+  BoxFit fit = BoxFit.cover,
+  Key? key,
+  Alignment alignment = Alignment.center,
+  Color? color,
+  BlendMode? colorBlendMode,
+  String? semanticLabel,
+  bool excludeFromSemantics = false,
+  FilterQuality filterQuality = FilterQuality.low,
+  BorderRadius? borderRadius, // 👈 NEW PARAM
+}) {
+  Widget image = Image.asset(
+    imagePath,
+    width: width,
+    height: height,
+    fit: fit,
+    alignment: alignment,
+    color: color,
+    colorBlendMode: colorBlendMode,
+    semanticLabel: semanticLabel,
+    excludeFromSemantics: excludeFromSemantics,
+    filterQuality: filterQuality,
+  );
+
+  if (borderRadius != null) {
+    image = ClipRRect(
+      borderRadius: borderRadius,
+      child: image,
+    );
+  }
+
+  return GestureDetector(
+    key: key,
+    onTap: onTap,
+    child: image,
+  );
+}
+
+
+Widget simpleListTile({
+  String? title,
+  String? subtitle,
+  VoidCallback? onTap,
+  double? width,
+  double? height,
+  double? titleFontSize,
+  double? subtitleFontSize,
+  FontWeight? titleFontWeight,
+  FontWeight? subtitleFontWeight,
+  Color? titleColor,
+  Color? subtitleColor,
+  EdgeInsetsGeometry? padding,
+  Widget? trailingIcon,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: width,
+      height: height,
+      padding:
+          padding ??
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (title != null)
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: titleFontWeight ?? FontWeight.bold,
+                    fontSize: titleFontSize ?? 16,
+                    color: titleColor ?? Colors.black,
+                  ),
+                ),
+              if (subtitle != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: subtitleFontSize ?? 14,
+                    fontWeight: subtitleFontWeight ?? FontWeight.normal,
+                    color: subtitleColor ?? Colors.grey,
+                  ),
+                ),
+              ],
+            ],
+          ),
+          trailingIcon ??
+              const Icon(Icons.chevron_right, size: 24, color: Colors.black),
+        ],
+      ),
+    ),
+  );
+}

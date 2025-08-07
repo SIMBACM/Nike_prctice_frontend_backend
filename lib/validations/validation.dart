@@ -111,3 +111,72 @@ String? validateYear(String? value) {
   }
   return null;
 }
+
+String? validateFullName(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'Full name is required';
+  }
+  return null;
+}
+
+String? validatePhoneNumber(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'Phone number is required';
+  }
+  if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+    return 'Enter a valid 10-digit phone number';
+  }
+  return null;
+}
+
+String? validatePincode(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'Pincode is required';
+  }
+  if (!RegExp(r'^[0-9]{6}$').hasMatch(value)) {
+    return 'Enter a valid 6-digit pincode';
+  }
+  return null;
+}
+
+String? validateState(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'State is required';
+  }
+  return null;
+}
+
+String? validateCity(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'City is required';
+  }
+  return null;
+}
+
+String? validateLandmark(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'Landmark is required';
+  }
+  return null;
+}
+
+String? validateHouseNumber(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'House/Building name is required';
+  }
+  return null;
+}
+
+String? validateRoadAreaColony(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'Road name/Area/Colony is required';
+  }
+  return null;
+}
+
+String? validateAddressType(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please select address type';
+  }
+  return null;
+}
