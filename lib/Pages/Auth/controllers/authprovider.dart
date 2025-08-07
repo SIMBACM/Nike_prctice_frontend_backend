@@ -8,6 +8,9 @@ import 'package:nike_prctice/utils/commonutils.dart';
 
 class Authprovider extends ChangeNotifier {
   // Variables
+
+  String? _fetchedusername;
+  String? get fetchedusername => _fetchedusername;
   DateTime? selecteddate;
   int? selectedday;
   int? selectedmonth;
@@ -169,6 +172,7 @@ class Authprovider extends ChangeNotifier {
       final response = await PostApiServices().signin(emailcontroller.text);
       if (response['status'] == 'success') {
         final String username = response['Firstname'] ?? '';
+        setFetchedusername(username);
         print("signined in with username:$username");
         MessengerUtil.showSnackBar(
           context,
@@ -255,6 +259,12 @@ class Authprovider extends ChangeNotifier {
       );
       return false;
     }
+  }
+
+  //  global fetching username
+  void setFetchedusername(String? username){
+    _fetchedusername = username;
+    notifyListeners();
   }
 
   // disposing

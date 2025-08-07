@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/Pages/Home/view/productdetailspage.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class Maindashboard extends StatefulWidget {
   final String? fetchedusername;
-  const Maindashboard({super.key, this.fetchedusername, });
+  const Maindashboard({super.key, this.fetchedusername});
 
   @override
   State<Maindashboard> createState() => _MaindashboardState();
@@ -31,8 +32,8 @@ class _MaindashboardState extends State<Maindashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Dasboardprovider>(
-      builder: (context, dasboadmodel, child) => Scaffold(
+    return Consumer2<Dasboardprovider, Authprovider>(
+      builder: (context, dasboadmodel, authmodel, _) => Scaffold(
         backgroundColor: Colors.white,
         // APP bar
         appBar: CommonHomeAppBar(),
@@ -46,7 +47,7 @@ class _MaindashboardState extends State<Maindashboard> {
               Container(
                 alignment: Alignment.center,
                 child: commonText(
-                  text: 'Good Morning ${widget.fetchedusername}',
+                  text: 'Good Morning ${authmodel.fetchedusername}',
                   fontSize: 24,
                   fontWeight: TSizes.semiBold,
                 ),
@@ -406,10 +407,7 @@ class _MaindashboardState extends State<Maindashboard> {
             ],
           ),
         ),
-        bottomNavigationBar: commonBottomNavigationBar(
-          context,
-          dasboadmodel,
-        ),
+        bottomNavigationBar: commonBottomNavigationBar(context, dasboadmodel),
       ),
     );
   }
