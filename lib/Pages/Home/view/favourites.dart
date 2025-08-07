@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
-import 'package:nike_prctice/Pages/Home/controllers/widgets.dart';
+import 'package:nike_prctice/widgets/containerwidget.dart';
 import 'package:provider/provider.dart';
 
 class Favourites extends StatefulWidget {

@@ -5,6 +5,7 @@ import 'package:nike_prctice/splashscreen/splashscreen1.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

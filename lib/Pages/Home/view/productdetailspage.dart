@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
-import 'package:nike_prctice/Pages/Home/controllers/widgets.dart';
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/fulldetails.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
+import 'package:nike_prctice/widgets/containerwidget.dart';
+import 'package:nike_prctice/widgets/sliderwidget.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
 import 'package:provider/provider.dart';
+
 
 class Productdetailspage extends StatelessWidget {
   final Welcome product;
@@ -26,8 +28,26 @@ class Productdetailspage extends StatelessWidget {
               Center(
                 child: productImageSliderCard(
                   imageUrls: product.images,
-                  onAddToCart: () => print("Cart clicked"),
-                  onShare: () => print("Share clicked"),
+                  onAddToCart: () {
+                    productpagemodel.sendvaluestocartapi(
+                      context,
+                      product.title,
+                      product.category,
+                      product.price.toString(),
+                      product.thumbnail,
+                      product.tags?.join(',') ?? '',
+                    );
+                  },
+                  onShare: () {
+                    final productUrl =
+                        "https://nike.com/product/${product.title}";
+                    productpagemodel.shareProduct(
+                      context,
+                      productUrl,
+                      product.thumbnail,
+                    );
+                  },
+
                   height: 300,
                 ),
               ),
@@ -115,8 +135,7 @@ class Productdetailspage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                Fulldetails(product: product),
+                            builder: (context) => Fulldetails(product: product),
                           ),
                         );
                       },

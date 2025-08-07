@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
-import 'package:nike_prctice/Pages/Home/controllers/widgets.dart';
-import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/productdetailspage.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/images.dart';
+import 'package:nike_prctice/widgets/Appbarwidget.dart';
 import 'package:nike_prctice/widgets/bottomnavigationbutton.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
+import 'package:nike_prctice/widgets/containerwidget.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
 import 'package:provider/provider.dart';
 
 class Maindashboard extends StatefulWidget {
   final String? fetchedusername;
-  final Welcome? product;
-  const Maindashboard({super.key, this.fetchedusername, this.product});
+  const Maindashboard({super.key, this.fetchedusername, });
 
   @override
   State<Maindashboard> createState() => _MaindashboardState();

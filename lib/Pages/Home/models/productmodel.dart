@@ -9,7 +9,7 @@ Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
 String welcomeToJson(Welcome data) => json.encode(data.toJson());
 
 class Welcome {
-  int? id;
+  String? id;
   String title;
   String category;
   double price;
@@ -32,6 +32,7 @@ class Welcome {
   Meta? meta;
   List<String>? images;
   bool isFavorite;
+  int selectedQty;
 
   Welcome({
     this.id,
@@ -57,10 +58,11 @@ class Welcome {
     this.meta,
     this.images,
     this.isFavorite = false,
+    this.selectedQty = 1,
   });
 
   factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
-    id: json["id"],
+    id: json["_id"]?.toString(),
     title: json["title"],
     description: json["description"],
     category: json["category"],

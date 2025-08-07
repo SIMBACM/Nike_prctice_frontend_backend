@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/Pages/Home/view/bag.dart';
 import 'package:nike_prctice/Pages/Home/view/favourites.dart';
 import 'package:nike_prctice/Pages/Home/view/shop.dart';
 
@@ -19,7 +20,7 @@ Widget commonBottomNavigationBar(
         case 1:
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  Shop()),
+            MaterialPageRoute(builder: (context) => Shop()),
           );
           break;
         case 2:
@@ -29,7 +30,10 @@ Widget commonBottomNavigationBar(
           );
           break;
         case 3:
-          Navigator.pushReplacementNamed(context, '/cart');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Bagpage()),
+          );
           break;
         case 4:
           Navigator.pushReplacementNamed(context, '/profile');
