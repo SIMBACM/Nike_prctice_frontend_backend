@@ -19,6 +19,7 @@ class Dasboardprovider extends ChangeNotifier {
   bool isLoading = true;
   int currentindex = 0;
   final List<String> quantity = ['1', '2', '3', '4', '5'];
+  String? selectedlocation;
   TextEditingController fullname = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
   TextEditingController alternatephnonenumber = TextEditingController();
@@ -50,6 +51,18 @@ class Dasboardprovider extends ChangeNotifier {
       products[index].isFavorite = !products[index].isFavorite;
       notifyListeners();
     }
+  }
+
+  // function for selected location
+  void location(String locationtytpe) {
+    selectedlocation = locationtytpe;
+    notifyListeners();
+  }
+
+  // function for color change
+
+  bool isSelected(String locationtytpe) {
+    return selectedlocation == locationtytpe;
   }
 
   // Load products from api function

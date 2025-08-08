@@ -12,8 +12,8 @@ Widget commonButton({
   double? elevation,
   double? width,
   double? height,
-  Widget? prefixIcon, // 👈 New
-  Widget? suffixIcon, // 👈 New
+  Widget? prefixIcon, 
+  Widget? suffixIcon, 
 }) {
   final button = ElevatedButton(
     onPressed: onPressed,

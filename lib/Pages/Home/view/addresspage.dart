@@ -172,8 +172,13 @@ class Addresspage extends StatelessWidget {
                         child: commonButton(
                           prefixIcon: Icon(Icons.home),
                           text: 'Home',
-                          textColor: AppColors.grey,
-                          backgroundColor: AppColors.secondary,
+                          textColor: AppColors.primary,
+                          backgroundColor: addressmodel.isSelected('Home')
+                              ? AppColors.grey
+                              : AppColors.secondary,
+                          onPressed: () {
+                            addressmodel.location('Home');
+                          },
                         ),
                       ),
                       SizedBox(width: TSizes.defaultSpace),
@@ -182,8 +187,13 @@ class Addresspage extends StatelessWidget {
                         child: commonButton(
                           prefixIcon: Icon(Icons.apartment),
                           text: 'Work',
-                          textColor: AppColors.grey,
-                          backgroundColor: AppColors.secondary,
+                          textColor: AppColors.primary,
+                          backgroundColor: addressmodel.isSelected('Work')
+                              ? AppColors.grey
+                              : AppColors.secondary,
+                          onPressed: () {
+                            addressmodel.location('Work');
+                          },
                         ),
                       ),
                     ],
