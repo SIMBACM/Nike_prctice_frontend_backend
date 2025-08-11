@@ -6,7 +6,6 @@ import 'package:nike_prctice/Pages/Home/controllers/services/homeapi.dart';
 
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
-import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -223,33 +222,6 @@ class Dasboardprovider extends ChangeNotifier {
       ).showSnackBar(SnackBar(content: Text('Error sharing: $e')));
     }
   }
-
-  // Validation
-
-  Future<bool> validateall(
-    BuildContext context,
-    GlobalKey<FormState> key,
-  ) async {
-    final formState = key.currentState;
-    if (formState != null && formState.validate()) {
-      MessengerUtil.showSnackBar(
-        context,
-        'Validation Sucessfull',
-        duration: Duration(seconds: 3),
-        backgroundColor: AppColors.validIconGreen,
-      );
-      return true;
-    } else {
-      MessengerUtil.showSnackBar(
-        context,
-        'Validation Failed',
-        duration: Duration(seconds: 3),
-        backgroundColor: AppColors.accent,
-      );
-      return false;
-    }
-  }
-
   // function for storing address
 
   void sendvaluestostoreaddress(BuildContext context) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
@@ -16,8 +17,8 @@ class Addresspage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    return Consumer<Dasboardprovider>(
-      builder: (context, addressmodel, child) => Form(
+    return Consumer2<Dasboardprovider, Authprovider>(
+      builder: (context, addressmodel, authadressmodel, _) => Form(
         key: _formKey,
         child: Scaffold(
           appBar: AppBar(
@@ -207,7 +208,7 @@ class Addresspage extends StatelessWidget {
                     width: 300,
                     backgroundColor: AppColors.primary,
                     onPressed: () async {
-                      final isValid = await addressmodel.validateall(
+                      final isValid = await authadressmodel.validateall(
                         context,
                         _formKey,
                       );
