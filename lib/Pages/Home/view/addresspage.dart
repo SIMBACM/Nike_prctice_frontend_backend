@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/Pages/Home/view/ordersummary.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
+import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:nike_prctice/validations/validation.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
 import 'package:nike_prctice/widgets/containerwidget.dart';
@@ -49,7 +51,9 @@ class Addresspage extends StatelessWidget {
                       imagePath: Images.ordersummary,
                       width: 96,
                       height: 47,
-                      onTap: () {},
+                      onTap: () {
+                        NavigationUtil.push(context, Ordersummary());
+                      },
                       fit: BoxFit.contain,
                     ),
                     tappableImage(
@@ -86,52 +90,59 @@ class Addresspage extends StatelessWidget {
                         controller: addressmodel.alternatephnonenumber,
                       ),
                       SizedBox(height: TSizes.spaceBtwInputFields),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: 185,
-                            child: commonTextFormField(
-                              labelText: "Pincode (Required)*",
-                              hintText: 'Pincode (Required)*',
-                              controller: addressmodel.pincode,
-                              validator: validatePincode,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 175,
+                              child: commonTextFormField(
+                                labelText: "Pincode (Required)*",
+                                hintText: 'Pincode (Required)*',
+                                controller: addressmodel.pincode,
+                                validator: validatePincode,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 185,
-                            child: commonTextFormField(
-                              labelText: "State (Required)*",
-                              hintText: 'State (Required)*',
-                              controller: addressmodel.state,
-                              validator: validateState,
+                            SizedBox(width: TSizes.defaultSpace),
+                            SizedBox(
+                              width: 175,
+                              child: commonTextFormField(
+                                labelText: "State (Required)*",
+                                hintText: 'State (Required)*',
+                                controller: addressmodel.state,
+                                validator: validateState,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(height: TSizes.spaceBtwInputFields),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: 185,
-                            child: commonTextFormField(
-                              labelText: "City (Required)*",
-                              hintText: 'City (Required)*',
-                              controller: addressmodel.city,
-                              validator: validateCity,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              width: 175,
+                              child: commonTextFormField(
+                                labelText: "City (Required)*",
+                                hintText: 'City (Required)*',
+                                controller: addressmodel.city,
+                                validator: validateCity,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 185,
-                            child: commonTextFormField(
-                              labelText: "Landmark(Required)*",
-                              hintText: 'Landmark(Required)*',
-                              controller: addressmodel.landmark,
-                              validator: validateLandmark,
+                            SizedBox(width: TSizes.defaultSpace),
+                            SizedBox(
+                              width: 175,
+                              child: commonTextFormField(
+                                labelText: "Landmark(Required)*",
+                                hintText: 'Landmark(Required)*',
+                                controller: addressmodel.landmark,
+                                validator: validateLandmark,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(height: TSizes.spaceBtwInputFields),
                       commonTextFormField(

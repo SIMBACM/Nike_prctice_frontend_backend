@@ -118,7 +118,7 @@ class _BagpageState extends State<Bagpage> {
                                 selectedValue: cartmodel.cart[index].selectedQty
                                     .toString(),
                                 onChanged: (value) {
-                                  cartmodel.updateQty(index, value);
+                                  cartmodel.updateQty(index, value!);
                                 },
                               ),
                               SizedBox(height: TSizes.defaultSpace),
@@ -129,7 +129,8 @@ class _BagpageState extends State<Bagpage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     commonText(
-                                      text: "MRP: ${item.price.toString()}",
+                                      text:
+                                          "MRP: ${cartmodel.cart[index].price.toString()}",
                                       fontSize: TSizes.fontSizeMd,
                                       fontWeight: TSizes.medium,
                                     ),
@@ -147,56 +148,64 @@ class _BagpageState extends State<Bagpage> {
                                   fontWeight: TSizes.regular,
                                 ),
                               ),
-                              Divider(),
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      commonText(text: 'Subtotal'),
-                                      commonText(text: '₹ 23,795.00'),
-                                    ],
-                                  ),
-                                  SizedBox(height: TSizes.defaultSpace),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      commonText(text: 'Delivery'),
-                                      commonText(text: '₹ 1,250.00'),
-                                    ],
-                                  ),
-                                  SizedBox(height: TSizes.defaultSpace),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      commonText(text: 'Total'),
-                                      commonText(text: '₹ 25,045.00'),
-                                    ],
-                                  ),
-                                  SizedBox(height: TSizes.defaultSpace),
-                                  commonButton(
-                                    text: 'Remove',
-                                    fontSize: TSizes.fontSizeMd,
-                                    textColor: AppColors.secondary,
-                                    backgroundColor: AppColors.primary,
-                                    width: 200,
-                                    onPressed: () {
-                                      cartmodel.sendvaluestodeletecartapi(
-                                        item.id!,
-                                        context,
-                                      );
-                                    },
-                                  ),
-                                  SizedBox(height: 50),
-                                ],
+                              SizedBox(height: TSizes.defaultSpace),
+                              commonButton(
+                                text: 'Remove',
+                                fontSize: TSizes.fontSizeMd,
+                                textColor: AppColors.secondary,
+                                backgroundColor: AppColors.primary,
+                                width: 200,
+                                onPressed: () {
+                                  cartmodel.sendvaluestodeletecartapi(
+                                    item.id!,
+                                    context,
+                                  );
+                                },
                               ),
+                              Divider(),
                             ],
                           );
                         },
                       ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            commonText(text: 'Subtotal'),
+                            commonText(
+                              text:
+                                  '₹ ${cartmodel.getsubtotal().toStringAsFixed(2)}',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: TSizes.defaultSpace),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            commonText(text: 'Delivery'),
+                            commonText(
+                              text: '₹ ${cartmodel.getDelivery().toString()}',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: TSizes.defaultSpace),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            commonText(text: 'Total'),
+                            commonText(
+                              text: '₹ ${cartmodel.gettotal().toString()}',
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 50),
+                      ],
                     ),
                   ),
                   commonButton(

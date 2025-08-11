@@ -8,6 +8,7 @@ Widget commonText({
   TextAlign? textAlign,
   int? maxLines,
   TextOverflow? overflow,
+  double? height,
 }) {
   return Text(
     text,
@@ -18,6 +19,7 @@ Widget commonText({
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,
+      height: height,
     ),
   );
 }

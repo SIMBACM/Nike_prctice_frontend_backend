@@ -236,6 +236,7 @@ class _MaindashboardState extends State<Maindashboard> {
                                 return productCard(
                                   imageUrl: product.thumbnail,
                                   title: product.title,
+                                  subtitle: product.category,
                                   price: product.price.toString(),
                                   onTap: () {
                                     Navigator.push(
@@ -297,6 +298,7 @@ class _MaindashboardState extends State<Maindashboard> {
                           return productCard(
                             imageUrl: product.thumbnail,
                             title: product.title,
+                            subtitle: product.category,
                             price: product.price.toString(),
                             onTap: () {
                               Navigator.push(
@@ -342,6 +344,7 @@ class _MaindashboardState extends State<Maindashboard> {
                             imageUrl: product.thumbnail,
                             title: product.title,
                             price: product.price.toString(),
+                            subtitle: product.category,
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -385,8 +388,9 @@ class _MaindashboardState extends State<Maindashboard> {
                           return productCard(
                             imageUrl: product.thumbnail,
                             title: product.title,
+                            subtitle: product.category,
                             price: product.price.toString(),
-                            subtitle: product.title,
+
                             onTap: () {
                               Navigator.push(
                                 context,

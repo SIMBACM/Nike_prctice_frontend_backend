@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/Pages/Home/view/Maindashboard.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
 import 'package:nike_prctice/Pages/Home/view/favourites.dart';
 import 'package:nike_prctice/Pages/Home/view/profile.dart';
@@ -17,7 +18,7 @@ Widget commonBottomNavigationBar(
       shopmodel.bottomnavigation(value);
       switch (value) {
         case 0:
-          Navigator.pushReplacementNamed(context, '/home');
+          NavigationUtil.push(context, Maindashboard());
           break;
         case 1:
           Navigator.push(

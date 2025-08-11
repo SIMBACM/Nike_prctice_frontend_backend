@@ -149,7 +149,7 @@ class _ShopState extends State<Shop> {
               ),
               SizedBox(height: TSizes.defaultSpace),
               Container(
-                padding: EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 10, right: 10),
                 child: Column(
                   children: [
                     commonCard(
@@ -426,44 +426,50 @@ class _ShopState extends State<Shop> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        lebronCard(
-                          width: 190,
-                          height: 170,
-                          assetImagePath: Images.brown,
-                          title: "Brown",
-                          fontWeight: TSizes.regular,
-                        ),
-                        SizedBox(width: TSizes.defaultSpace),
-                        lebronCard(
-                          width: 190,
-                          height: 170,
-                          assetImagePath: Images.grey,
-                          title: "Grey",
-                          fontWeight: TSizes.regular,
-                        ),
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          lebronCard(
+                            width: 190,
+                            height: 170,
+                            assetImagePath: Images.brown,
+                            title: "Brown",
+                            fontWeight: TSizes.regular,
+                          ),
+                          SizedBox(width: TSizes.defaultSpace),
+                          lebronCard(
+                            width: 190,
+                            height: 170,
+                            assetImagePath: Images.grey,
+                            title: "Grey",
+                            fontWeight: TSizes.regular,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: TSizes.defaultSpace),
-                    Row(
-                      children: [
-                        lebronCard(
-                          width: 190,
-                          height: 170,
-                          assetImagePath: Images.black,
-                          title: "Black",
-                          fontWeight: TSizes.regular,
-                        ),
-                        SizedBox(width: TSizes.defaultSpace),
-                        lebronCard(
-                          width: 190,
-                          height: 170,
-                          assetImagePath: Images.white,
-                          title: "White",
-                          fontWeight: TSizes.regular,
-                        ),
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          lebronCard(
+                            width: 190,
+                            height: 170,
+                            assetImagePath: Images.black,
+                            title: "Black",
+                            fontWeight: TSizes.regular,
+                          ),
+                          SizedBox(width: TSizes.defaultSpace),
+                          lebronCard(
+                            width: 190,
+                            height: 170,
+                            assetImagePath: Images.white,
+                            title: "White",
+                            fontWeight: TSizes.regular,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

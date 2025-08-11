@@ -19,8 +19,10 @@ class AppColors {
   static const Color grey400 = Color(0xFFBDBDBD); 
   static const Color lightGrey = Color(0xFFF5F5F5);
   static const Color mutedText = Color(0xFF7C7C7C); 
+   static const Color greyBackground = Color(0xFF7C7C7C);
 
   // Auth-specific colors
   static const Color authButtonBackground = Color(0xFF130329);
   static const Color validIconGreen = Colors.green;
+  static const Color deepPurpleDark = Color(0xFF130329);
 }

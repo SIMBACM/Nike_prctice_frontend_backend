@@ -84,4 +84,10 @@ class Images {
   static const String settings1 = 'assets/Group 574.png';
   static const String bar = 'assets/Rectangle 148.png';
   static const String barhorizontal = 'assets/Rectangle 134.png';
+
+  // Payment methods
+  static const String paypal = 'assets/Ellipse 15.png';
+  static const String googlepay = 'assets/Ellipse 17.png';
+  static const String paytm = 'assets/Ellipse 19.png';
+  static const String phonepay = 'assets/Ellipse 21.png';
 }

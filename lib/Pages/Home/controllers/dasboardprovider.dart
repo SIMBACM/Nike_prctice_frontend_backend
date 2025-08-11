@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nike_prctice/Pages/Home/controllers/services/homeapi.dart';
-
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
@@ -19,6 +17,7 @@ class Dasboardprovider extends ChangeNotifier {
   int currentindex = 0;
   final List<String> quantity = ['1', '2', '3', '4', '5'];
   String? selectedlocation;
+  String? selectedPaymentMethod;
   TextEditingController fullname = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
   TextEditingController alternatephnonenumber = TextEditingController();
@@ -29,12 +28,46 @@ class Dasboardprovider extends ChangeNotifier {
   TextEditingController houseno = TextEditingController();
   TextEditingController area = TextEditingController();
 
+  int selectedindex = 0;
+  String? selectedUPIname = 'UPI';
+
+  void itemindex(index) {
+    selectedindex = index;
+  }
+
+  // function for paymentmethods
+
+  void paymentmethod(String value) {
+    selectedPaymentMethod = value;
+    notifyListeners();
+  }
+
   // update quantity function
-  void updateQty(int index, String? qty) {
-    if (qty != null) {
-      cart[index].selectedQty = int.parse(qty);
-      notifyListeners();
+  void updateQty(int index, String value) {
+    int qty = int.parse(value);
+    cart[index].selectedQty = qty;
+    notifyListeners();
+  }
+
+  // get subtotal
+
+  double getsubtotal() {
+    double total = 0;
+    for (var item in cart) {
+      total += item.price * item.selectedQty;
     }
+    return total;
+  }
+
+  // get delivery
+  double getDelivery() {
+    return 1250.0;
+  }
+
+  // get total
+
+  double gettotal() {
+    return getsubtotal() + getDelivery();
   }
 
   // bottom navigation function
@@ -50,6 +83,13 @@ class Dasboardprovider extends ChangeNotifier {
       products[index].isFavorite = !products[index].isFavorite;
       notifyListeners();
     }
+  }
+
+  // Function for selection of Upi
+
+  void selectionUpiMethod(String value) {
+    selectedUPIname = value;
+    notifyListeners();
   }
 
   // function for selected location

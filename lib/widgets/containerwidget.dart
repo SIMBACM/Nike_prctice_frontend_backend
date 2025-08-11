@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
+import 'package:nike_prctice/widgets/textwidget.dart';
 
 Widget commonContainer({
   double? width,
@@ -108,19 +110,18 @@ Widget productCard({
   return GestureDetector(
     onTap: onTap,
     child: Padding(
-      padding: const EdgeInsets.only(left: 8), 
+      padding: const EdgeInsets.only(left: 8, bottom: 10),
       child: Opacity(
-        opacity: 1, 
+        opacity: 1,
         child: Container(
-          width: 142, 
-          height: 277, 
+          width: 142,
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: AppColors.secondary,
-              width: 2, 
+              width: 2,
               style: BorderStyle.solid,
             ),
             boxShadow: const [
@@ -133,6 +134,7 @@ Widget productCard({
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Stack(
                 alignment: Alignment.topRight,
@@ -141,9 +143,9 @@ Widget productCard({
                     borderRadius: BorderRadius.circular(12),
                     child: Image.network(
                       imageUrl ?? 'https://via.placeholder.com/150',
-                      height: 140,
+                      height: 120,
                       width: double.infinity,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                   IconButton(
@@ -158,6 +160,9 @@ Widget productCard({
               const SizedBox(height: 8),
               Text(
                 title ?? 'Product Title',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -290,7 +295,7 @@ Widget commonCard({
     onTap: onTap,
     child: Material(
       elevation: 1,
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         width: width,
         height: height,
@@ -543,6 +548,90 @@ Widget simpleListTile({
           ),
           trailingIcon ??
               const Icon(Icons.chevron_right, size: 24, color: Colors.black),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget reusableCard({
+  Widget? child,
+  double? width,
+  double? height,
+  Color? color,
+  double? borderRadius,
+  BoxBorder? border,
+  List<BoxShadow>? boxShadow,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? margin,
+  VoidCallback? onTap,
+  Color? backgroundColor,
+}) {
+  final cardContent = Container(
+    width: width,
+    height: height,
+    padding: padding ?? const EdgeInsets.all(8.0),
+    margin: margin,
+    decoration: BoxDecoration(
+      color: backgroundColor ?? color ?? Colors.white,
+      borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+      border: border,
+      boxShadow:
+          boxShadow ??
+          [
+            BoxShadow(
+              color: const Color.fromARGB(205, 138, 134, 134).withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+    ),
+    child: child,
+  );
+
+  return onTap != null
+      ? GestureDetector(onTap: onTap, child: cardContent)
+      : cardContent;
+}
+
+Widget upiOption({
+  String? name,
+  String? imageUrl,
+  double imageSize = 30,
+  double spacing = 10,
+  Color activeColor = Colors.deepPurple,
+  TextStyle? textStyle,
+  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(vertical: 8.0),
+  String? groupValue,
+  ValueChanged<String?>? onChanged,
+  VoidCallback? onTap,
+}) {
+  return InkWell(
+    onTap:
+        onTap ??
+        () {
+          if (onChanged != null) onChanged(name);
+        },
+    child: Padding(
+      padding: padding,
+      child: Row(
+        children: [
+          if (imageUrl != null && imageUrl.isNotEmpty)
+            Image.asset(imageUrl, width: imageSize, height: imageSize),
+          if (imageUrl != null && imageUrl.isNotEmpty) SizedBox(width: spacing),
+          Expanded(
+            child: commonText(
+              text: name ?? "",
+              fontSize: textStyle?.fontSize ?? TSizes.fontSizeMd,
+              fontWeight: textStyle?.fontWeight ?? TSizes.regular,
+            ),
+          ),
+          Radio<String>(
+            value: name ?? "",
+            groupValue: groupValue,
+            onChanged: onChanged,
+            activeColor: activeColor,
+          ),
         ],
       ),
     ),
