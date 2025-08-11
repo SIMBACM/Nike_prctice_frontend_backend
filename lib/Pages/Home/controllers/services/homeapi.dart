@@ -151,4 +151,48 @@ class ProductApiServices {
       throw Exception('${responseBody['message']}');
     }
   }
+
+  // frontend call for address
+
+  Future<dynamic> storeaddress(
+    String fullname,
+    String phonenumber,
+    String alternatenumber,
+    String pincode,
+    String state,
+    String city,
+    String landmark,
+    String housenumber,
+    String area,
+    String addresstype,
+  ) async {
+    var client = http.Client();
+    var apiurl = Uri.parse(LLinks.postaddress);
+    var response = await client.post(
+      apiurl,
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: jsonEncode({
+        'Fullname': fullname,
+        'Phonenumber': phonenumber,
+        'Alternatenumber': alternatenumber,
+        'Pincode': pincode,
+        'State': state,
+        'City': city,
+        'Landmark': landmark,
+        'Housenumber': housenumber,
+        'Area': area,
+        'Addresstype': addresstype,
+      }),
+    );
+    var responseBody = json.decode(response.body);
+    if (response.statusCode == 200) {
+      return responseBody;
+    } else {
+      throw Exception('Failed to store${responseBody['message']}');
+    }
+  }
+
+
 }

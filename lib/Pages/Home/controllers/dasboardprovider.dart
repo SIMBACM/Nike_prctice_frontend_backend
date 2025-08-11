@@ -249,4 +249,29 @@ class Dasboardprovider extends ChangeNotifier {
       return false;
     }
   }
+
+  // function for storing address
+
+  void sendvaluestostoreaddress(BuildContext context) async {
+    try {
+      final response = await ProductApiServices().storeaddress(
+        fullname.text,
+        phonenumber.text,
+        alternatephnonenumber.text,
+        pincode.text,
+        state.text,
+        city.text,
+        landmark.text,
+        houseno.text,
+        area.text,
+        selectedlocation.toString(),
+      );
+      if (response['message'] == 'Address saved successfully') {
+        print(response);
+        MessengerUtil.showSnackBar(context, 'Address completed');
+      }
+    } catch (e) {
+      MessengerUtil.showSnackBar(context, 'Failed to add $e');
+    }
+  }
 }

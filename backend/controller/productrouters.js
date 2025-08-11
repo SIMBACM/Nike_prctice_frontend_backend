@@ -3,6 +3,7 @@ const productrouter = express.Router();
 const mongoose = require('mongoose');
 const { ProductModel } = require('../model/productmodel');
 const { CartModel } = require('../model/cartmodel');
+const { Addressmodel } = require('../model/addressmodel');
 
 
 // Storing favorite products
@@ -79,6 +80,26 @@ productrouter.delete('/delete-item/:id', async (req, res) => {
     catch (e) {
         console.error('deleting failed', e)
         console.error("Error deleting cart item:", e);
+        res.status(500).json({ message: "Server error", e });
+    }
+});
+
+productrouter.post('/storeaddress', async (req, res) => {
+
+    const { Fullname, Phonenumber, Alternatenumber, Pincode, State, City, Landmark, Housenumber, Area, Addresstype } = req.body
+    try {
+        const existing = await Addressmodel.findOne({ Fullname })
+
+        if (existing) {
+            return res.status(404).json({ message: 'Address already exists', data: existing })
+        }
+        const newAddress = new Addressmodel({ Fullname, Phonenumber, Alternatenumber, Pincode, State, City, Landmark, Housenumber, Area, Addresstype });
+        await newAddress.save();
+        return res.status(200).json({ message: 'Address saved successfully', data: newAddress })
+    }
+    catch (e) {
+        console.error('Stroring failed', e)
+        console.error("Error Storing address :", e);
         res.status(500).json({ message: "Server error", e });
     }
 });

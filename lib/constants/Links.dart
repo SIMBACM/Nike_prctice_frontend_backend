@@ -16,4 +16,6 @@ class LLinks {
       'http://192.168.1.5:3001/product/show-cart-products';
   static const String deletecart =
       'http://192.168.1.5:3001/product/delete-item';
+  static const String postaddress =
+      'http://192.168.1.5:3001/product/storeaddress';
 }

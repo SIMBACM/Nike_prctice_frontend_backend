@@ -206,8 +206,14 @@ class Addresspage extends StatelessWidget {
                     text: 'Save',
                     width: 300,
                     backgroundColor: AppColors.primary,
-                    onPressed: () {
-                      addressmodel.validateall(context, _formKey);
+                    onPressed: () async {
+                      final isValid = await addressmodel.validateall(
+                        context,
+                        _formKey,
+                      );
+                      if (isValid) {
+                        addressmodel.sendvaluestostoreaddress(context);
+                      }
                     },
                   ),
                 ),

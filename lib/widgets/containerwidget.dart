@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/constants/colors.dart';
 
 Widget commonContainer({
   double? width,
@@ -106,58 +107,78 @@ Widget productCard({
 }) {
   return GestureDetector(
     onTap: onTap,
-    child: Container(
-      width: 160,
-      margin: EdgeInsets.symmetric(horizontal: 12),
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            alignment: Alignment.topRight,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  imageUrl ?? 'https://via.placeholder.com/150',
-                  height: 140,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              IconButton(
-                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-                color: isFavorite ? Colors.amber : Colors.red,
-                onPressed: onPressed,
+    child: Padding(
+      padding: const EdgeInsets.only(left: 8), 
+      child: Opacity(
+        opacity: 1, 
+        child: Container(
+          width: 142, 
+          height: 277, 
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.secondary,
+              width: 2, 
+              style: BorderStyle.solid,
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(0, 2),
               ),
             ],
           ),
-          SizedBox(height: 8),
-          Text(
-            title ?? 'Product Title',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      imageUrl ?? 'https://via.placeholder.com/150',
+                      height: 140,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                    ),
+                    color: isFavorite ? Colors.amber : Colors.red,
+                    onPressed: onPressed,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                title ?? 'Product Title',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                subtitle ?? 'Product Subtitle',
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'MRP : ₹ ${price ?? '0.00'}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
-          Text(
-            subtitle ?? 'Product Subtitle',
-            style: TextStyle(color: Colors.grey, fontSize: 12),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'MRP : ₹ ${price ?? '0.00'}',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
-              color: Colors.black,
-            ),
-          ),
-        ],
+        ),
       ),
     ),
   );
@@ -462,19 +483,11 @@ Widget tappableImage({
   );
 
   if (borderRadius != null) {
-    image = ClipRRect(
-      borderRadius: borderRadius,
-      child: image,
-    );
+    image = ClipRRect(borderRadius: borderRadius, child: image);
   }
 
-  return GestureDetector(
-    key: key,
-    onTap: onTap,
-    child: image,
-  );
+  return GestureDetector(key: key, onTap: onTap, child: image);
 }
-
 
 Widget simpleListTile({
   String? title,

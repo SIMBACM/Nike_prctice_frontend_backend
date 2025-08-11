@@ -91,6 +91,7 @@ class _MaindashboardState extends State<Maindashboard> {
                   : SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: dasboadmodel.products.map((product) {
                           return productCard(
                             imageUrl: product.thumbnail,
