@@ -32,6 +32,7 @@ class _BagpageState extends State<Bagpage> {
         appBar: AppBar(
           backgroundColor: AppColors.secondary,
           automaticallyImplyLeading: false,
+          toolbarHeight: 100,
           title: commonText(
             text: 'Bag',
             fontSize: TSizes.fontSizeLg,
@@ -54,60 +55,71 @@ class _BagpageState extends State<Bagpage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Card(
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 155,
-                                  padding: EdgeInsets.only(left: 20, right: 20),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.secondary,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(9),
-                                        child: Image.network(
-                                          item.thumbnail,
-                                          width: 126,
-                                          height: 145,
-                                          fit: BoxFit.cover,
-                                        ),
+                                color: AppColors.secondary, // white background
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    12,
+                                  ), // match the image radius
+                                ),
+                                child: SizedBox(
+                                  width: double
+                                      .infinity, // full width, or set exact value
+                                  height: 200, // match the image height
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                    ),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              9,
+                                            ),
+                                            child: Image.network(
+                                              item.thumbnail,
+                                              width: 126,
+                                              height: 145,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          SizedBox(width: TSizes.spaceMedium),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              commonText(
+                                                text: item.title,
+                                                fontSize: TSizes.fontSizeMd,
+                                                fontWeight: TSizes.medium,
+                                                color: AppColors.backgroundDark,
+                                              ),
+                                              SizedBox(
+                                                height: TSizes.spaceSmall,
+                                              ),
+                                              commonText(
+                                                text: item.category,
+                                                fontSize: TSizes.fontSizeSm,
+                                                fontWeight: TSizes.medium,
+                                                color: AppColors.backgroundDark,
+                                              ),
+                                              SizedBox(
+                                                height: TSizes.spaceSmall,
+                                              ),
+                                              commonText(
+                                                text: item.tags?.join('') ?? "",
+                                                fontSize: TSizes.fontSizeSm,
+                                                fontWeight: TSizes.medium,
+                                                color: AppColors.backgroundDark,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(width: TSizes.spaceMedium),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            commonText(
-                                              text: item.title,
-                                              fontSize: TSizes.fontSizeMd,
-                                              fontWeight: TSizes.medium,
-                                            ),
-                                            SizedBox(
-                                              height: TSizes.defaultSpace,
-                                            ),
-                                            commonText(
-                                              text: item.category,
-                                              fontSize: TSizes.fontSizeMd,
-                                              fontWeight: TSizes.medium,
-                                              color: AppColors.grey,
-                                            ),
-                                            SizedBox(
-                                              height: TSizes.defaultSpace,
-                                            ),
-                                            commonText(
-                                              text: item.tags?.join('') ?? "",
-                                              fontSize: TSizes.fontSizeMd,
-                                              fontWeight: TSizes.medium,
-                                              color: AppColors.grey,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -139,13 +151,19 @@ class _BagpageState extends State<Bagpage> {
                               ),
                               SizedBox(height: TSizes.defaultSpace),
                               Container(
-                                padding: EdgeInsets.only(left: 15, right: 15),
+                                padding: EdgeInsets.only(right: 10),
                                 alignment: Alignment.centerRight,
-                                child: commonText(
-                                  text:
-                                      'Incl. of all taxes\nAlso Includes all applicable duti..',
-                                  fontSize: TSizes.fontSizeMd,
-                                  fontWeight: TSizes.regular,
+                                child: Column(
+                                  children: [
+                                    commonText(
+                                      text:
+                                          'Incl. of all taxes\n(Also Includes all applicable duties...',
+                                      fontSize: TSizes.fontSizeMd,
+                                      fontWeight: TSizes.regular,
+                                      color: AppColors.greyBackground,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ],
                                 ),
                               ),
                               SizedBox(height: TSizes.defaultSpace),
@@ -153,7 +171,7 @@ class _BagpageState extends State<Bagpage> {
                                 text: 'Remove',
                                 fontSize: TSizes.fontSizeMd,
                                 textColor: AppColors.secondary,
-                                backgroundColor: AppColors.primary,
+                                backgroundColor: AppColors.backgroundDark,
                                 width: 200,
                                 onPressed: () {
                                   cartmodel.sendvaluestodeletecartapi(
@@ -212,7 +230,7 @@ class _BagpageState extends State<Bagpage> {
                     text: 'Checkout',
                     fontSize: TSizes.fontSizeMd,
                     textColor: AppColors.secondary,
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: AppColors.backgroundDark,
                     width: 336,
                     onPressed: () {
                       NavigationUtil.push(context, Addresspage());

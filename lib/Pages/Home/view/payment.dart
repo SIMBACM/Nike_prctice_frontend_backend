@@ -57,7 +57,7 @@ class _PaymentState extends State<Payment> {
                       itemBuilder: (context, index) {
                         final item = paymentmodel.cart[index];
                         return Container(
-                          padding: EdgeInsets.only(left: 22),
+                          padding: EdgeInsets.only(left: 25, right: 35),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -78,11 +78,11 @@ class _PaymentState extends State<Payment> {
                         );
                       },
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 22, right: 22),
-                      child: Column(
-                        children: [
-                          Row(
+                    Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left: 25, right: 35),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               commonText(
@@ -91,14 +91,18 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ 23,795.00',
+                                text:
+                                    '₹ ${paymentmodel.getsubtotal().toStringAsFixed(2)}',
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
                             ],
                           ),
-                          SizedBox(height: TSizes.defaultSpace),
-                          Row(
+                        ),
+                        SizedBox(height: TSizes.defaultSpace),
+                        Container(
+                          padding: EdgeInsets.only(left: 25, right: 35),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               commonText(
@@ -107,14 +111,18 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ 1,250.00',
+                                text:
+                                    '₹ ${paymentmodel.getDelivery().toString()}',
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
                             ],
                           ),
-                          SizedBox(height: TSizes.defaultSpace),
-                          Row(
+                        ),
+                        SizedBox(height: TSizes.defaultSpace),
+                        Container(
+                          padding: EdgeInsets.only(left: 25, right: 35),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               commonText(
@@ -123,14 +131,17 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ 25,045.00',
+                                text: '₹ ${paymentmodel.gettotal().toString()}',
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
                             ],
                           ),
-                          SizedBox(height: TSizes.spaceBtwSections),
-                          Row(
+                        ),
+                        SizedBox(height: TSizes.spaceBtwSections),
+                        Container(
+                          padding: EdgeInsets.only(left: 25, right: 35),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               reusableCard(
@@ -252,318 +263,350 @@ class _PaymentState extends State<Payment> {
                               ),
                             ],
                           ),
+                        ),
 
-                          if (paymentmodel.selectedPaymentMethod == 'UPI') ...[
-                            SizedBox(height: TSizes.defaultSpace),
-                            Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Color(0x1A7C7C7C),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: TSizes.spaceMedium),
-                                  upiOption(
-                                    name: 'Paypal',
-                                    imageUrl: Images.paypal,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                  upiOption(
-                                    name: "Paytm",
-                                    imageUrl: Images.paytm,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                  upiOption(
-                                    name: "Gpay",
-                                    imageUrl: Images.googlepay,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                  upiOption(
-                                    name: "PhonePe",
-                                    imageUrl: Images.phonepay,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ] else if (paymentmodel.selectedPaymentMethod ==
-                              'Card') ...[
-                            SizedBox(height: TSizes.defaultSpace),
-                            Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Color(0x1A7C7C7C),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  commonText(
-                                    text: 'Card number',
-                                    fontSize: TSizes.fontSizeMd,
-                                  ),
-                                  commonTextFormField(
-                                    labelText: 'xxxx xxxx xxxx xxxx',
-                                    hintText: 'xxxx xxxx xxxx xxxx',
-                                    suffixIcon: Icon(LucideIcons.creditCard),
-                                  ),
-                                  SizedBox(height: TSizes.spaceBtwInputFields),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.only(
-                                              left: 15,
-                                              right: 15,
-                                            ),
-                                            child: commonText(
-                                              text: 'Valid Thru',
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(
-                                              left: 95,
-                                              right: 10,
-                                            ),
-                                            child: commonText(text: 'Cvv'),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SizedBox(
-                                            width: 150,
-                                            height: 40,
-                                            child: commonTextFormField(
-                                              labelText: 'MM/YY',
-                                              hintText: 'MM/YY',
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 150,
-                                            height: 40,
-                                            child: commonTextFormField(
-                                              labelText: 'CVV',
-                                              hintText: 'CVV',
-                                              suffixIcon: Icon(
-                                                LucideIcons.badgeQuestionMark,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: TSizes.spaceBtwInputFields,
-                                      ),
-                                      commonButton(
-                                        width: 350,
-                                        backgroundColor: AppColors.primary,
-                                        text: 'Done',
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ] else if (paymentmodel.selectedPaymentMethod ==
-                              'Bank') ...[
-                            SizedBox(height: TSizes.defaultSpace),
-                            Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Color(0x1A7C7C7C),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                children: [
-                                  upiOption(
-                                    name: "HDFC",
-                                    imageUrl: Images.phonepay,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                  upiOption(
-                                    name: "State Bank Of India",
-                                    imageUrl: Images.paytm,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                  upiOption(
-                                    name: "ICICI",
-                                    imageUrl: Images.googlepay,
-                                    activeColor: AppColors.deepPurpleDark,
-                                    groupValue: paymentmodel.selectedUPIname,
-                                    onChanged: (value) {
-                                      paymentmodel.selectionUpiMethod(
-                                        value ?? '',
-                                      );
-                                    },
-                                  ),
-                                  commonTextButton(
-                                    onPressed: () {},
-                                    text: "All Other Banks",
-                                    fontSize: TSizes.fontSizeMd,
-                                    textColor: AppColors.primary,
-                                    underline: true,
-                                    underlineColor: AppColors.primary,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ] else if (paymentmodel.selectedPaymentMethod ==
-                              'Cash') ...[
-                            SizedBox(height: TSizes.defaultSpace),
-                            Container(
-                              padding: EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Color(0x1A7C7C7C),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                children: [
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: paymentmodel.cart.length,
-                                    itemBuilder: (context, index) {
-                                      final item = paymentmodel.cart[index];
-                                      return Container(
-                                        padding: EdgeInsets.only(left: 10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            commonText(
-                                              text: item.title,
-                                              color: AppColors.greyBackground,
-                                              fontSize: TSizes.fontSizeMd,
-                                              fontWeight: TSizes.regular,
-                                            ),
-                                            SizedBox(height: TSizes.spaceSmall),
-                                            commonText(
-                                              text: item.category,
-                                              color: AppColors.greyBackground,
-                                            ),
-                                            SizedBox(
-                                              height: TSizes.spaceMedium,
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      commonText(
-                                        text: 'Subtotal',
-                                        fontSize: TSizes.fontSizeMd,
-                                        color: AppColors.greyBackground,
-                                      ),
-                                      commonText(
-                                        text:
-                                            '₹ ${paymentmodel.getsubtotal().toStringAsFixed(2)}',
-                                        fontSize: TSizes.fontSizeMd,
-                                        color: AppColors.greyBackground,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: TSizes.defaultSpace),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      commonText(
-                                        text: 'Delivery',
-                                        fontSize: TSizes.fontSizeMd,
-                                        color: AppColors.greyBackground,
-                                      ),
-                                      commonText(
-                                        text:
-                                            '₹ ${paymentmodel.getDelivery().toString()}',
-                                        fontSize: TSizes.fontSizeMd,
-                                        color: AppColors.greyBackground,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: TSizes.defaultSpace),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      commonText(
-                                        text: 'Total',
-                                        fontSize: TSizes.fontSizeMd,
-                                        color: AppColors.greyBackground,
-                                      ),
-                                      commonText(
-                                        text:
-                                            '₹ ${paymentmodel.gettotal().toString()}',
-                                        fontSize: TSizes.fontSizeMd,
-                                        color: AppColors.greyBackground,
-                                      ),
-                                    ],
-                                  ),
-                                  commonButton(
-                                    width: 350,
-                                    backgroundColor: AppColors.primary,
-                                    text: 'Done',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                        if (paymentmodel.selectedPaymentMethod == 'UPI') ...[
                           SizedBox(height: TSizes.defaultSpace),
-                          commonButton(
-                            width: 390,
-                            height: 50,
-                            backgroundColor: AppColors.primary,
-                            text: 'Place Order',
+                          Container(
+                            width: 360,
+                            height: 320,
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Color(0x1A7C7C7C),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(height: TSizes.spaceMedium),
+                                upiOption(
+                                  name: 'Paypal',
+                                  imageUrl: Images.paypal,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                                upiOption(
+                                  name: "Paytm",
+                                  imageUrl: Images.paytm,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                                upiOption(
+                                  name: "Gpay",
+                                  imageUrl: Images.googlepay,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                                upiOption(
+                                  name: "PhonePe",
+                                  imageUrl: Images.phonepay,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: 300),
+                        ] else if (paymentmodel.selectedPaymentMethod ==
+                            'Card') ...[
+                          SizedBox(height: TSizes.defaultSpace),
+                          Container(
+                            width: 360,
+                            height: 270,
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Color(0x1A7C7C7C),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                commonText(
+                                  text: 'Card number',
+                                  fontSize: TSizes.fontSizeMd,
+                                ),
+                                commonTextFormField(
+                                  labelText: 'xxxx xxxx xxxx xxxx',
+                                  hintText: 'xxxx xxxx xxxx xxxx',
+                                  suffixIcon: Icon(LucideIcons.creditCard),
+                                ),
+                                SizedBox(height: TSizes.spaceBtwInputFields),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                          ),
+                                          child: commonText(text: 'Valid Thru'),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                            left: 95,
+                                            right: 10,
+                                          ),
+                                          child: commonText(text: 'Cvv'),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                          width: 150,
+                                          height: 40,
+                                          child: commonTextFormField(
+                                            labelText: 'MM/YY',
+                                            hintText: 'MM/YY',
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 150,
+                                          height: 40,
+                                          child: commonTextFormField(
+                                            labelText: 'CVV',
+                                            hintText: 'CVV',
+                                            suffixIcon: Icon(
+                                              LucideIcons.badgeQuestionMark,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: TSizes.spaceBtwInputFields,
+                                    ),
+                                    commonButton(
+                                      width: 350,
+                                      backgroundColor: AppColors.primary,
+                                      text: 'Done',
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ] else if (paymentmodel.selectedPaymentMethod ==
+                            'Bank') ...[
+                          SizedBox(height: TSizes.defaultSpace),
+                          Container(
+                            width: 360,
+                            height: 320,
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Color(0x1A7C7C7C),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                upiOption(
+                                  name: "HDFC",
+                                  imageUrl: Images.phonepay,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                                upiOption(
+                                  name: "State Bank Of India",
+                                  imageUrl: Images.paytm,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                                upiOption(
+                                  name: "ICICI",
+                                  imageUrl: Images.googlepay,
+                                  activeColor: AppColors.deepPurpleDark,
+                                  groupValue: paymentmodel.selectedUPIname,
+                                  onChanged: (value) {
+                                    paymentmodel.selectionUpiMethod(
+                                      value ?? '',
+                                    );
+                                  },
+                                ),
+                                commonTextButton(
+                                  onPressed: () {},
+                                  text: "All Other Banks",
+                                  fontSize: TSizes.fontSizeMd,
+                                  textColor: AppColors.primary,
+                                  underline: true,
+                                  underlineColor: AppColors.primary,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ] else if (paymentmodel.selectedPaymentMethod ==
+                            'Cash') ...[
+                          SizedBox(height: TSizes.defaultSpace),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 25, right: 30),
+                            child: Card(
+                              color: Color.fromARGB(26, 238, 230, 230),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16.0,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      itemCount: paymentmodel.cart.length,
+                                      itemBuilder: (context, index) {
+                                        final item = paymentmodel.cart[index];
+                                        return Container(
+                                          padding: EdgeInsets.only(
+                                            left: 25,
+                                            right: 35,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              commonText(
+                                                text: item.title,
+                                                color: AppColors.greyBackground,
+                                                fontSize: TSizes.fontSizeMd,
+                                                fontWeight: TSizes.regular,
+                                              ),
+                                              SizedBox(
+                                                height: TSizes.spaceSmall,
+                                              ),
+                                              commonText(
+                                                text: item.category,
+                                                color: AppColors.greyBackground,
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    SizedBox(height: TSizes.defaultSpace),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        left: 25,
+                                        right: 35,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          commonText(
+                                            text: 'Subtotal',
+                                            fontSize: TSizes.fontSizeMd,
+                                            color: AppColors.greyBackground,
+                                          ),
+                                          commonText(
+                                            text:
+                                                '₹ ${paymentmodel.getsubtotal().toStringAsFixed(2)}',
+                                            fontSize: TSizes.fontSizeMd,
+                                            color: AppColors.greyBackground,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: TSizes.spaceSmall),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        left: 25,
+                                        right: 35,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          commonText(
+                                            text: 'Delivery',
+                                            fontSize: TSizes.fontSizeMd,
+                                            color: AppColors.greyBackground,
+                                          ),
+                                          commonText(
+                                            text:
+                                                '₹ ${paymentmodel.getDelivery().toString()}',
+                                            fontSize: TSizes.fontSizeMd,
+                                            color: AppColors.greyBackground,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: TSizes.spaceSmall),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        left: 25,
+                                        right: 35,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          commonText(
+                                            text: 'Total',
+                                            fontSize: TSizes.fontSizeMd,
+                                            color: AppColors.greyBackground,
+                                          ),
+                                          commonText(
+                                            text:
+                                                '₹ ${paymentmodel.gettotal().toString()}',
+                                            fontSize: TSizes.fontSizeMd,
+                                            color: AppColors.greyBackground,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: TSizes.defaultSpace),
+                                    commonButton(
+                                      width: 300,
+                                      backgroundColor: AppColors.primary,
+                                      text: 'Done',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
-                      ),
+                        SizedBox(height: TSizes.defaultSpace),
+                        commonButton(
+                          width: 390,
+                          height: 50,
+                          backgroundColor: AppColors.primary,
+                          text: 'Place Order',
+                        ),
+                        SizedBox(height: 300),
+                      ],
                     ),
                   ],
                 ),

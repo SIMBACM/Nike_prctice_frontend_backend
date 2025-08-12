@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nike_prctice/Pages/Home/controllers/services/homeapi.dart';
+import 'package:nike_prctice/Pages/Home/models/addressmodel.dart';
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
+import 'package:nike_prctice/Pages/Home/view/ordersummary.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -13,6 +15,7 @@ class Dasboardprovider extends ChangeNotifier {
   List<Welcome> products = [];
   List<Welcome> favorites = [];
   List<Welcome> cart = [];
+  List<Address> address = [];
   bool isLoading = true;
   int currentindex = 0;
   final List<String> quantity = ['1', '2', '3', '4', '5'];
@@ -281,9 +284,26 @@ class Dasboardprovider extends ChangeNotifier {
       if (response['message'] == 'Address saved successfully') {
         print(response);
         MessengerUtil.showSnackBar(context, 'Address completed');
+        NavigationUtil.push(context, Ordersummary());
       }
     } catch (e) {
       MessengerUtil.showSnackBar(context, 'Failed to add $e');
+    }
+  }
+
+  // load address
+
+  Future<void> loadAddress() async {
+    try {
+      final data = await ProductApiServices().fetchaddress();
+      print("Fetched Address Data: $data");
+      address = data;
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      print('Error fetching products:$e');
+      isLoading = false;
+      notifyListeners();
     }
   }
 }

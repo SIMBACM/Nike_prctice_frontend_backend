@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:nike_prctice/Pages/Home/models/addressmodel.dart';
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/constants/Links.dart';
 
@@ -194,5 +195,19 @@ class ProductApiServices {
     }
   }
 
-
+  // Front end call for showing address
+  Future<List<Address>> fetchaddress() async {
+    var client = http.Client();
+    var apiurl = Uri.parse(LLinks.getaddress);
+    final response = await client.get(apiurl);
+    var jsonBody = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final List data = jsonBody['data'] is List
+          ? jsonBody['data']
+          : [jsonBody['data']];
+      return data.map((item) => Address.fromJson(item)).toList();
+    } else {
+      throw Exception('${jsonBody['message']}');
+    }
+  }
 }

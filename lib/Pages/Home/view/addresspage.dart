@@ -38,7 +38,7 @@ class Addresspage extends StatelessWidget {
               children: [
                 SizedBox(height: TSizes.spaceMedium),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     tappableImage(
                       imagePath: Images.address,

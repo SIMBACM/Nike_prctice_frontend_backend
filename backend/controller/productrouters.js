@@ -104,4 +104,15 @@ productrouter.post('/storeaddress', async (req, res) => {
     }
 });
 
+
+productrouter.get('/show-address', async (req, res) => {
+    try {
+        const Address = await Addressmodel.find()
+        res.status(200).json({ message: 'Fetched successfully', data: Address })
+    } catch (e) {
+        console.error('Feteching failed', e)
+        res.status(404).json({ message: 'Failed', e })
+    }
+});
+
 module.exports = productrouter;
