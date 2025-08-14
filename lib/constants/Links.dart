@@ -11,13 +11,13 @@ class LLinks {
   static const String postFav =
       'http://192.168.1.5:3001/product/favourite-products';
   static const String getFav = 'http://192.168.1.5:3001/product/show-products';
-  static const String postcart = 'http://192.168.1.5:3001/product/addtocart';
+  static const String postcart = 'http://192.168.1.5:3001/cart/addtocart';
   static const String getcart =
-      'http://192.168.1.5:3001/product/show-cart-products';
-  static const String deletecart =
-      'http://192.168.1.5:3001/product/delete-item';
+      'http://192.168.1.5:3001/cart/show-cart-products';
+  static const String deletecart = 'http://192.168.1.5:3001/cart/delete-item';
   static const String postaddress =
-      'http://192.168.1.5:3001/product/storeaddress';
+      'http://192.168.1.5:3001/payment/storeaddress';
   static const String getaddress =
-      'http://192.168.1.5:3001/product/show-address';
+      'http://192.168.1.5:3001/payment/show-address';
+  static const String updatecart = 'http://192.168.1.5:3001/cart/update-cart';
 }

@@ -154,17 +154,13 @@ class _OrdersummaryState extends State<Ordersummary> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Card(
-                                      color: AppColors
-                                          .secondary, // white background
+                                      color: AppColors.secondary,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          12,
-                                        ), // match the image radius
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: SizedBox(
-                                        width: double
-                                            .infinity, // full width, or set exact value
-                                        height: 200, // match the image height
+                                        width: double.infinity,
+                                        height: 200,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 20,
@@ -241,10 +237,16 @@ class _OrdersummaryState extends State<Ordersummary> {
                                       child: customQtyDropdown(
                                         label: 'Qty',
                                         items: ordermodel.quantity,
-                                        selectedValue: ordermodel
-                                            .cart[index]
-                                            .selectedQty
-                                            .toString(),
+                                        selectedValue:
+                                            ordermodel.quantity.contains(
+                                              ordermodel.cart[index].quantity
+                                                  ?.toString(),
+                                            )
+                                            ? ordermodel.cart[index].quantity
+                                                  .toString()
+                                            : ordermodel
+                                                  .quantity
+                                                  .first, 
                                         onChanged: (value) {
                                           ordermodel.updateQty(index, value!);
                                         },
@@ -257,7 +259,7 @@ class _OrdersummaryState extends State<Ordersummary> {
                           ),
                           SizedBox(height: TSizes.defaultSpace),
                           Container(
-                            padding: EdgeInsets.only(left: 25, right: 35),
+                            padding: EdgeInsets.only(right: 275),
                             child: commonText(text: 'Price details'),
                           ),
                           SizedBox(height: TSizes.defaultSpace),

@@ -32,7 +32,10 @@ class Welcome {
   Meta? meta;
   List<String>? images;
   bool isFavorite;
-  int selectedQty;
+  String? quantity;
+  String? subtotal;
+  String? delivery;
+  String? total;
 
   Welcome({
     this.id,
@@ -58,7 +61,10 @@ class Welcome {
     this.meta,
     this.images,
     this.isFavorite = false,
-    this.selectedQty = 1,
+    this.quantity,
+    this.subtotal,
+    this.delivery,
+    this.total,
   });
 
   factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(

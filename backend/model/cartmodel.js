@@ -48,6 +48,18 @@ const CartSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    quantity: {
+        type: String
+    },
+    subtotal: {
+        type: String
+    },
+    delivery: {
+        type: String
+    },
+    total: {
+        type: String
+    }
 });
 
 const CartModel = mongoose.model('Cart', CartSchema);

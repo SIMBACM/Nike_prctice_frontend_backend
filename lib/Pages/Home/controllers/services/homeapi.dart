@@ -210,4 +210,38 @@ class ProductApiServices {
       throw Exception('${jsonBody['message']}');
     }
   }
+
+  // frontend calling for update cart
+
+  Future<dynamic> updatecart(
+    String id,
+    String quantity,
+    String subtotal,
+    String delivery,
+    String total,
+  ) async {
+    var client = http.Client();
+    var apiurl = Uri.parse(LLinks.updatecart);
+    var response = await client.post(
+      apiurl,
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: jsonEncode({
+        'id': id,
+        'quantity': quantity,
+        'subtotal': subtotal,
+        'delivery': delivery,
+        'total': total,
+      }),
+    );
+    var responseBody = json.decode(response.body);
+    if (response.statusCode == 200) {
+      return responseBody;
+    } else {
+      throw Exception('Error${responseBody['message']}');
+    }
+  }
+
+  
 }

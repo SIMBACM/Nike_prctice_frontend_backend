@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:nike_prctice/Pages/Home/controllers/services/homeapi.dart';
 import 'package:nike_prctice/Pages/Home/models/addressmodel.dart';
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
+import 'package:nike_prctice/Pages/Home/view/addresspage.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
 import 'package:nike_prctice/Pages/Home/view/ordersummary.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
@@ -47,8 +48,7 @@ class Dasboardprovider extends ChangeNotifier {
 
   // update quantity function
   void updateQty(int index, String value) {
-    int qty = int.parse(value);
-    cart[index].selectedQty = qty;
+    cart[index].quantity = value;
     notifyListeners();
   }
 
@@ -57,7 +57,8 @@ class Dasboardprovider extends ChangeNotifier {
   double getsubtotal() {
     double total = 0;
     for (var item in cart) {
-      total += item.price * item.selectedQty;
+      int qty = int.tryParse(item.quantity ?? '') ?? 1;
+      total += (item.price ?? 0.0) * qty;
     }
     return total;
   }
@@ -109,17 +110,25 @@ class Dasboardprovider extends ChangeNotifier {
 
   // Load products from api function
   Future<void> loadproducts() async {
+    isLoading = true;
+    notifyListeners();
+
     try {
-      final data = await ProductApiServices().fetchProducts();
-      print('Fetched ${data.length} products');
-      products = data;
-      isLoading = false;
-      notifyListeners();
+      final fetchedProducts = await ProductApiServices().fetchProducts();
+      final favList = await ProductApiServices()
+          .fetchFavourites(); // your API call
+
+      final favIds = favList.map((f) => f.id).toSet();
+      products = fetchedProducts.map((p) {
+        p.isFavorite = favIds.contains(p.id);
+        return p;
+      }).toList();
     } catch (e) {
-      print('Error fetching products:$e');
-      isLoading = false;
-      notifyListeners();
+      print("Error loading products: $e");
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 
   // Loading favourites
@@ -304,6 +313,32 @@ class Dasboardprovider extends ChangeNotifier {
       print('Error fetching products:$e');
       isLoading = false;
       notifyListeners();
+    }
+  }
+
+  void sendvaluestoupdatecart(
+    BuildContext context,
+    int index,
+    String subtotal,
+    String delivery,
+    String total,
+  ) async {
+    try {
+      final item = cart[index];
+      final response = await ProductApiServices().updatecart(
+        item.id.toString(),
+        item.quantity.toString(),
+        subtotal,
+        delivery,
+        total,
+      );
+      if (response['message'] == 'Cart items updated successfully') {
+        print(response);
+        NavigationUtil.push(context, Addresspage());
+      }
+    } catch (e) {
+      print(e);
+      MessengerUtil.showSnackBar(context, '$e');
     }
   }
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
-import 'package:nike_prctice/Pages/Home/view/addresspage.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
-import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
 import 'package:nike_prctice/widgets/commondropdown.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
@@ -55,16 +53,13 @@ class _BagpageState extends State<Bagpage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Card(
-                                color: AppColors.secondary, // white background
+                                color: AppColors.secondary,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    12,
-                                  ), // match the image radius
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: SizedBox(
-                                  width: double
-                                      .infinity, // full width, or set exact value
-                                  height: 200, // match the image height
+                                  width: double.infinity,
+                                  height: 200,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 20,
@@ -127,8 +122,13 @@ class _BagpageState extends State<Bagpage> {
                               customQtyDropdown(
                                 label: 'Qty',
                                 items: cartmodel.quantity,
-                                selectedValue: cartmodel.cart[index].selectedQty
-                                    .toString(),
+                                selectedValue:
+                                    cartmodel.quantity.contains(
+                                      cartmodel.cart[index].quantity
+                                          ?.toString(),
+                                    )
+                                    ? cartmodel.cart[index].quantity.toString()
+                                    : cartmodel.quantity.first,
                                 onChanged: (value) {
                                   cartmodel.updateQty(index, value!);
                                 },
@@ -142,7 +142,7 @@ class _BagpageState extends State<Bagpage> {
                                   children: [
                                     commonText(
                                       text:
-                                          "MRP: ${cartmodel.cart[index].price.toString()}",
+                                          "MRP: ${(cartmodel.cart[index].price * (int.tryParse(cartmodel.cart[index].quantity ?? '1') ?? 1)).toStringAsFixed(2)}",
                                       fontSize: TSizes.fontSizeMd,
                                       fontWeight: TSizes.medium,
                                     ),
@@ -221,7 +221,6 @@ class _BagpageState extends State<Bagpage> {
                             ),
                           ],
                         ),
-
                         SizedBox(height: 50),
                       ],
                     ),
@@ -233,7 +232,13 @@ class _BagpageState extends State<Bagpage> {
                     backgroundColor: AppColors.backgroundDark,
                     width: 336,
                     onPressed: () {
-                      NavigationUtil.push(context, Addresspage());
+                      cartmodel.sendvaluestoupdatecart(
+                        context,
+                        0,
+                        cartmodel.getsubtotal().toStringAsFixed(2),
+                        cartmodel.getDelivery().toStringAsFixed(2),
+                        cartmodel.gettotal().toStringAsFixed(2),
+                      );
                     },
                   ),
                   SizedBox(height: 100),
