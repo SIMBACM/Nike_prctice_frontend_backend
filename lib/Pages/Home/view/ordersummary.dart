@@ -234,22 +234,14 @@ class _OrdersummaryState extends State<Ordersummary> {
                                         left: 25,
                                         right: 35,
                                       ),
-                                      child: customQtyDropdown(
-                                        label: 'Qty',
-                                        items: ordermodel.quantity,
-                                        selectedValue:
-                                            ordermodel.quantity.contains(
-                                              ordermodel.cart[index].quantity
-                                                  ?.toString(),
-                                            )
-                                            ? ordermodel.cart[index].quantity
-                                                  .toString()
-                                            : ordermodel
-                                                  .quantity
-                                                  .first, 
-                                        onChanged: (value) {
-                                          ordermodel.updateQty(index, value!);
+                                      child: counterWidget(
+                                        onDelete: () {
+                                          ordermodel.decrement(index);
                                         },
+                                        onIncrement: () {
+                                          ordermodel.increment(index);
+                                        },
+                                        count: ordermodel.count,
                                       ),
                                     ),
                                   ],
@@ -274,8 +266,7 @@ class _OrdersummaryState extends State<Ordersummary> {
                                   color: AppColors.greyBackground,
                                 ),
                                 commonText(
-                                  text:
-                                      '₹ ${ordermodel.getsubtotal().toStringAsFixed(2)}',
+                                  text: '₹ Subtotal',
                                   fontSize: TSizes.fontSizeMd,
                                   color: AppColors.greyBackground,
                                 ),
@@ -294,8 +285,7 @@ class _OrdersummaryState extends State<Ordersummary> {
                                   color: AppColors.greyBackground,
                                 ),
                                 commonText(
-                                  text:
-                                      '₹ ${ordermodel.getDelivery().toString()}',
+                                  text: '₹ Delivery',
                                   fontSize: TSizes.fontSizeMd,
                                   color: AppColors.greyBackground,
                                 ),
@@ -314,7 +304,7 @@ class _OrdersummaryState extends State<Ordersummary> {
                                   color: AppColors.backgroundDark,
                                 ),
                                 commonText(
-                                  text: '₹ ${ordermodel.gettotal().toString()}',
+                                  text: '₹ Total',
                                   fontSize: TSizes.fontSizeMd,
                                   color: AppColors.backgroundDark,
                                 ),

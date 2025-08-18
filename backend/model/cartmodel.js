@@ -48,8 +48,12 @@ const CartSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    size: {
+        type: String,
+    },
     quantity: {
-        type: String
+        type: Number,
+        default: 1
     },
     subtotal: {
         type: String

@@ -19,6 +19,8 @@ class Dasboardprovider extends ChangeNotifier {
   List<Address> address = [];
   bool isLoading = true;
   int currentindex = 0;
+  int count = 1;
+  String? selectedsize;
   final List<String> quantity = ['1', '2', '3', '4', '5'];
   String? selectedlocation;
   String? selectedPaymentMethod;
@@ -46,32 +48,17 @@ class Dasboardprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // update quantity function
-  void updateQty(int index, String value) {
-    cart[index].quantity = value;
+  void increment(int index) {
+    cart[index].quantity++;
+    print('okey');
     notifyListeners();
   }
 
-  // get subtotal
-
-  double getsubtotal() {
-    double total = 0;
-    for (var item in cart) {
-      int qty = int.tryParse(item.quantity ?? '') ?? 1;
-      total += (item.price ?? 0.0) * qty;
+  void decrement(int index) {
+    if ((cart[index].quantity ?? 0) > 0) {
+      cart[index].quantity = (cart[index].quantity ?? 0) - 1;
+      notifyListeners();
     }
-    return total;
-  }
-
-  // get delivery
-  double getDelivery() {
-    return 1250.0;
-  }
-
-  // get total
-
-  double gettotal() {
-    return getsubtotal() + getDelivery();
   }
 
   // bottom navigation function
@@ -102,10 +89,29 @@ class Dasboardprovider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void size(String size) {
+    if (selectedsize == size) {
+      selectedsize = '';
+    } else {
+      selectedsize = size;
+    }
+    notifyListeners();
+  }
+
   // function for color change
 
   bool isSelected(String locationtytpe) {
     return selectedlocation == locationtytpe;
+  }
+
+  // Function for selection size color change
+  bool issizeseleted(String size) {
+    return selectedsize == size;
+  }
+
+  // get delivery
+  double getDelivery() {
+    return 1250.0;
   }
 
   // Load products from api function
@@ -195,6 +201,8 @@ class Dasboardprovider extends ChangeNotifier {
     String price,
     String thumbnail,
     String tags,
+    String size,
+    int quantity,
   ) async {
     try {
       final response = await ProductApiServices().storetocart(
@@ -203,6 +211,8 @@ class Dasboardprovider extends ChangeNotifier {
         category,
         price,
         tags,
+        size,
+        quantity,
       );
       if (response['message'] == 'Added to Cart') {
         print(response);
@@ -316,22 +326,27 @@ class Dasboardprovider extends ChangeNotifier {
     }
   }
 
-  void sendvaluestoupdatecart(
-    BuildContext context,
-    int index,
-    String subtotal,
-    String delivery,
-    String total,
-  ) async {
+  void sendValuesToUpdateCart(BuildContext context, String userId) async {
     try {
-      final item = cart[index];
-      final response = await ProductApiServices().updatecart(
-        item.id.toString(),
-        item.quantity.toString(),
-        subtotal,
-        delivery,
-        total,
+      final items = cart.map((item) {
+        final qty = item.quantity;
+        final itemSubtotal = item.price * qty;
+
+        return {
+          'id': item.id,
+          'price': item.price,
+          'quantity': qty,
+          'subtotal': itemSubtotal,
+          'delivery': getDelivery(),
+          'total': itemSubtotal + getDelivery(),
+        };
+      }).toList();
+
+      final response = await ProductApiServices().updatecartItems(
+        userId,
+        items,
       );
+
       if (response['message'] == 'Cart items updated successfully') {
         print(response);
         NavigationUtil.push(context, Addresspage());

@@ -10,7 +10,6 @@ import 'package:nike_prctice/widgets/sliderwidget.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
 import 'package:provider/provider.dart';
 
-
 class Productdetailspage extends StatelessWidget {
   final Welcome product;
   const Productdetailspage({super.key, required this.product});
@@ -36,6 +35,8 @@ class Productdetailspage extends StatelessWidget {
                       product.price.toString(),
                       product.thumbnail,
                       product.tags?.join(',') ?? '',
+                      productpagemodel.selectedsize ?? '',
+                      1,
                     );
                   },
                   onShare: () {
@@ -89,6 +90,95 @@ class Productdetailspage extends StatelessWidget {
                       fontWeight: TSizes.semiBold,
                     ),
                     SizedBox(height: TSizes.defaultSpace),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          commonButton(
+                            text: '6',
+                            isCircular: true,
+                            textColor: productpagemodel.issizeseleted('6')
+                                ? AppColors.secondary
+                                : AppColors.backgroundDark,
+                            backgroundColor: productpagemodel.issizeseleted('6')
+                                ? AppColors.backgroundDark
+                                : AppColors.secondary,
+                            onPressed: () {
+                              productpagemodel.size('6');
+                            },
+                          ),
+                          commonButton(
+                            text: '7',
+                            isCircular: true,
+                            textColor: productpagemodel.issizeseleted('7')
+                                ? AppColors.secondary
+                                : AppColors.backgroundDark,
+                            backgroundColor: productpagemodel.issizeseleted('7')
+                                ? AppColors.backgroundDark
+                                : AppColors.secondary,
+                            onPressed: () {
+                              productpagemodel.size('7');
+                            },
+                          ),
+                          commonButton(
+                            text: '8',
+                            isCircular: true,
+                            textColor: productpagemodel.issizeseleted('8')
+                                ? AppColors.secondary
+                                : AppColors.backgroundDark,
+                            backgroundColor: productpagemodel.issizeseleted('8')
+                                ? AppColors.backgroundDark
+                                : AppColors.secondary,
+                            onPressed: () {
+                              productpagemodel.size('8');
+                            },
+                          ),
+                          commonButton(
+                            text: '9',
+                            isCircular: true,
+                            textColor: productpagemodel.issizeseleted('9')
+                                ? AppColors.secondary
+                                : AppColors.backgroundDark,
+                            backgroundColor: productpagemodel.issizeseleted('9')
+                                ? AppColors.backgroundDark
+                                : AppColors.secondary,
+                            onPressed: () {
+                              productpagemodel.size('9');
+                            },
+                          ),
+                          commonButton(
+                            text: '10',
+                            isCircular: true,
+                            textColor: productpagemodel.issizeseleted('10')
+                                ? AppColors.secondary
+                                : AppColors.backgroundDark,
+                            backgroundColor:
+                                productpagemodel.issizeseleted('10')
+                                ? AppColors.backgroundDark
+                                : AppColors.secondary,
+                            onPressed: () {
+                              productpagemodel.size('10');
+                            },
+                          ),
+                          commonButton(
+                            text: '11',
+                            isCircular: true,
+                            textColor: productpagemodel.issizeseleted('11')
+                                ? AppColors.secondary
+                                : AppColors.backgroundDark,
+                            backgroundColor:
+                                productpagemodel.issizeseleted('11')
+                                ? AppColors.backgroundDark
+                                : AppColors.secondary,
+                            onPressed: () {
+                              productpagemodel.size('11');
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: TSizes.defaultSpace),
                     commonText(
                       text: product.description.toString(),
                       fontSize: TSizes.fontSizeLg,
@@ -101,12 +191,12 @@ class Productdetailspage extends StatelessWidget {
                     ),
                     SizedBox(height: TSizes.spaceSmall),
                     commonText(
-                      text: "• Brand: ${product.price.toString()}",
+                      text: "• Brand: ${product.brand.toString()}",
                       fontSize: TSizes.fontSizeMd,
                     ),
                     SizedBox(height: TSizes.spaceSmall),
                     commonText(
-                      text: "• SKU: ${product.price.toString()}",
+                      text: "• Stock: ${product.stock.toString()}",
                       fontSize: TSizes.fontSizeMd,
                     ),
                     SizedBox(height: TSizes.defaultSpace),
@@ -194,15 +284,24 @@ class Productdetailspage extends StatelessWidget {
                             ),
                           ),
                     SizedBox(height: TSizes.defaultSpace),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: commonButton(
-                        text: "Buy",
-                        fontSize: TSizes.fontSizeMd,
-                        textColor: AppColors.primary,
-                        width: 150,
-                        backgroundColor: AppColors.secondary,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        commonButton(
+                          text: "Add to Bag",
+                          fontSize: TSizes.fontSizeMd,
+                          textColor: AppColors.secondary,
+                          width: 150,
+                          backgroundColor: AppColors.backgroundDark,
+                        ),
+                        commonButton(
+                          text: "Buy",
+                          fontSize: TSizes.fontSizeMd,
+                          textColor: AppColors.primary,
+                          width: 150,
+                          backgroundColor: AppColors.secondary,
+                        ),
+                      ],
                     ),
                   ],
                 ),

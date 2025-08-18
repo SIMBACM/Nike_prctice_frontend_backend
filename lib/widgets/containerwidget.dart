@@ -637,3 +637,58 @@ Widget upiOption({
     ),
   );
 }
+
+Widget counterWidget({
+  int? count,
+  VoidCallback? onDelete,
+  VoidCallback? onIncrement,
+  double? borderRadius,
+  Color? backgroundColor,
+  Color? borderColor,
+  EdgeInsets? padding,
+  double? fontSize,
+  IconData? deleteIcon,
+  IconData? addIcon,
+  Color? iconColor,
+}) {
+  // Defaults
+  final int displayCount = count ?? 1;
+  final double displayBorderRadius = borderRadius ?? 50;
+  final Color displayBackgroundColor = backgroundColor ?? Colors.white;
+  final Color displayBorderColor = borderColor ?? const Color(0xFFDDDDDD);
+  final EdgeInsets displayPadding =
+      padding ?? const EdgeInsets.symmetric(horizontal: 8);
+  final double displayFontSize = fontSize ?? 18;
+  final IconData displayDeleteIcon = deleteIcon ?? Icons.delete_outline;
+  final IconData displayAddIcon = addIcon ?? Icons.add;
+  final Color displayIconColor = iconColor ?? Colors.black;
+
+  return Container(
+    padding: displayPadding,
+    decoration: BoxDecoration(
+      color: displayBackgroundColor,
+      borderRadius: BorderRadius.circular(displayBorderRadius),
+      border: Border.all(color: displayBorderColor),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (onDelete != null)
+          IconButton(
+            icon: Icon(displayDeleteIcon, color: displayIconColor),
+            onPressed: onDelete,
+          ),
+        Text(
+          '$displayCount',
+          style: TextStyle(fontSize: displayFontSize),
+        ),
+        if (onIncrement != null)
+          IconButton(
+            icon: Icon(displayAddIcon, color: displayIconColor),
+            onPressed: onIncrement,
+          ),
+      ],
+    ),
+  );
+}
+

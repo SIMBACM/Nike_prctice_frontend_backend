@@ -91,8 +91,7 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text:
-                                    '₹ ${paymentmodel.getsubtotal().toStringAsFixed(2)}',
+                                text: '₹ Subtotal',
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
@@ -111,8 +110,7 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text:
-                                    '₹ ${paymentmodel.getDelivery().toString()}',
+                                text: '₹ Delivery',
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
@@ -131,7 +129,7 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ ${paymentmodel.gettotal().toString()}',
+                                text: '₹ Total',
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
@@ -530,8 +528,7 @@ class _PaymentState extends State<Payment> {
                                             color: AppColors.greyBackground,
                                           ),
                                           commonText(
-                                            text:
-                                                '₹ ${paymentmodel.getsubtotal().toStringAsFixed(2)}',
+                                            text: '₹ Subtotal',
                                             fontSize: TSizes.fontSizeMd,
                                             color: AppColors.greyBackground,
                                           ),
@@ -554,8 +551,7 @@ class _PaymentState extends State<Payment> {
                                             color: AppColors.greyBackground,
                                           ),
                                           commonText(
-                                            text:
-                                                '₹ ${paymentmodel.getDelivery().toString()}',
+                                            text: '₹ Delivery',
                                             fontSize: TSizes.fontSizeMd,
                                             color: AppColors.greyBackground,
                                           ),
@@ -578,8 +574,7 @@ class _PaymentState extends State<Payment> {
                                             color: AppColors.greyBackground,
                                           ),
                                           commonText(
-                                            text:
-                                                '₹ ${paymentmodel.gettotal().toString()}',
+                                            text: '₹ Total',
                                             fontSize: TSizes.fontSizeMd,
                                             color: AppColors.greyBackground,
                                           ),

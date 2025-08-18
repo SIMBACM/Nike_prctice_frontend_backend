@@ -3,12 +3,13 @@ import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
-import 'package:nike_prctice/widgets/commondropdown.dart';
+import 'package:nike_prctice/widgets/containerwidget.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
 import 'package:provider/provider.dart';
 
 class Bagpage extends StatefulWidget {
-  const Bagpage({super.key});
+  final String? userId;
+  const Bagpage({super.key, this.userId});
 
   @override
   State<Bagpage> createState() => _BagpageState();
@@ -110,6 +111,16 @@ class _BagpageState extends State<Bagpage> {
                                                 fontWeight: TSizes.medium,
                                                 color: AppColors.backgroundDark,
                                               ),
+                                              SizedBox(
+                                                height: TSizes.spaceSmall,
+                                              ),
+                                              commonText(
+                                                text:
+                                                    'Size UK :${item.size.toString()}',
+                                                fontSize: TSizes.fontSizeSm,
+                                                fontWeight: TSizes.medium,
+                                                color: AppColors.backgroundDark,
+                                              ),
                                             ],
                                           ),
                                         ],
@@ -119,19 +130,18 @@ class _BagpageState extends State<Bagpage> {
                                 ),
                               ),
                               SizedBox(height: TSizes.defaultSpace),
-                              customQtyDropdown(
-                                label: 'Qty',
-                                items: cartmodel.quantity,
-                                selectedValue:
-                                    cartmodel.quantity.contains(
-                                      cartmodel.cart[index].quantity
-                                          ?.toString(),
-                                    )
-                                    ? cartmodel.cart[index].quantity.toString()
-                                    : cartmodel.quantity.first,
-                                onChanged: (value) {
-                                  cartmodel.updateQty(index, value!);
+                              counterWidget(
+                                onDelete: () {
+                                  cartmodel.decrement(index);
                                 },
+                                onIncrement: () {
+                                  cartmodel.increment(index);
+                                  cartmodel.sendValuesToUpdateCart(
+                                    context,
+                                    widget.userId.toString(),
+                                  );
+                                },
+                                count: cartmodel.cart[index].quantity,
                               ),
                               SizedBox(height: TSizes.defaultSpace),
                               Container(
@@ -142,7 +152,7 @@ class _BagpageState extends State<Bagpage> {
                                   children: [
                                     commonText(
                                       text:
-                                          "MRP: ${(cartmodel.cart[index].price * (int.tryParse(cartmodel.cart[index].quantity ?? '1') ?? 1)).toStringAsFixed(2)}",
+                                          "MRP: ${(cartmodel.cart[index].price)}",
                                       fontSize: TSizes.fontSizeMd,
                                       fontWeight: TSizes.medium,
                                     ),
@@ -167,19 +177,6 @@ class _BagpageState extends State<Bagpage> {
                                 ),
                               ),
                               SizedBox(height: TSizes.defaultSpace),
-                              commonButton(
-                                text: 'Remove',
-                                fontSize: TSizes.fontSizeMd,
-                                textColor: AppColors.secondary,
-                                backgroundColor: AppColors.backgroundDark,
-                                width: 200,
-                                onPressed: () {
-                                  cartmodel.sendvaluestodeletecartapi(
-                                    item.id!,
-                                    context,
-                                  );
-                                },
-                              ),
                               Divider(),
                             ],
                           );
@@ -195,10 +192,7 @@ class _BagpageState extends State<Bagpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             commonText(text: 'Subtotal'),
-                            commonText(
-                              text:
-                                  '₹ ${cartmodel.getsubtotal().toStringAsFixed(2)}',
-                            ),
+                            commonText(text: '₹ Subtotal'),
                           ],
                         ),
                         SizedBox(height: TSizes.defaultSpace),
@@ -206,9 +200,7 @@ class _BagpageState extends State<Bagpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             commonText(text: 'Delivery'),
-                            commonText(
-                              text: '₹ ${cartmodel.getDelivery().toString()}',
-                            ),
+                            commonText(text: '₹ Delivery'),
                           ],
                         ),
                         SizedBox(height: TSizes.defaultSpace),
@@ -216,9 +208,7 @@ class _BagpageState extends State<Bagpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             commonText(text: 'Total'),
-                            commonText(
-                              text: '₹ ${cartmodel.gettotal().toString()}',
-                            ),
+                            commonText(text: '₹ Total'),
                           ],
                         ),
                         SizedBox(height: 50),
@@ -232,13 +222,7 @@ class _BagpageState extends State<Bagpage> {
                     backgroundColor: AppColors.backgroundDark,
                     width: 336,
                     onPressed: () {
-                      cartmodel.sendvaluestoupdatecart(
-                        context,
-                        0,
-                        cartmodel.getsubtotal().toStringAsFixed(2),
-                        cartmodel.getDelivery().toStringAsFixed(2),
-                        cartmodel.gettotal().toStringAsFixed(2),
-                      );
+                      // cartmodel.sendValuesToUpdateCart(context);
                     },
                   ),
                   SizedBox(height: 100),

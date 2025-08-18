@@ -12,8 +12,9 @@ Widget commonButton({
   double? elevation,
   double? width,
   double? height,
-  Widget? prefixIcon, 
-  Widget? suffixIcon, 
+  Widget? prefixIcon,
+  Widget? suffixIcon,
+  bool isCircular = false,
 }) {
   final button = ElevatedButton(
     onPressed: onPressed,
@@ -26,9 +27,11 @@ Widget commonButton({
         padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       shape: MaterialStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
+        isCircular
+            ? const CircleBorder()
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
       ),
       elevation: MaterialStateProperty.all(elevation ?? 2),
       textStyle: MaterialStateProperty.all(TextStyle(fontSize: fontSize)),

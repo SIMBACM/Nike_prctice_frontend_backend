@@ -32,10 +32,8 @@ class Welcome {
   Meta? meta;
   List<String>? images;
   bool isFavorite;
-  String? quantity;
-  String? subtotal;
-  String? delivery;
-  String? total;
+  int quantity;
+  String? size;
 
   Welcome({
     this.id,
@@ -61,10 +59,8 @@ class Welcome {
     this.meta,
     this.images,
     this.isFavorite = false,
-    this.quantity,
-    this.subtotal,
-    this.delivery,
-    this.total,
+    this.quantity = 1,
+    this.size,
   });
 
   factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
@@ -99,6 +95,13 @@ class Welcome {
         : List<String>.from(json["images"].map((x) => x)),
     thumbnail: json["thumbnail"],
     isFavorite: json["isFavorite"] ?? false,
+    quantity:
+        int.tryParse(
+          json["quantity"]?.toString() ?? json["quantity"]?.toString() ?? '1',
+        ) ??
+        1,
+
+    size: json["size"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -127,6 +130,8 @@ class Welcome {
     "images": images == null ? null : List<dynamic>.from(images!.map((x) => x)),
     "thumbnail": thumbnail,
     "isFavorite": isFavorite,
+    "quantity": quantity,
+    "size": size,
   };
 }
 

@@ -94,6 +94,8 @@ class ProductApiServices {
     String category,
     String price,
     String tags,
+    String size,
+    int quantity,
   ) async {
     var client = http.Client();
     var apiurl = Uri.parse(LLinks.postcart);
@@ -108,6 +110,8 @@ class ProductApiServices {
         'price': price,
         'thumbnail': thumbnail,
         'tags': tags,
+        'size': size,
+        'quantity ': quantity,
       }),
     );
     var responseBody = json.decode(response.body);
@@ -213,35 +217,29 @@ class ProductApiServices {
 
   // frontend calling for update cart
 
-  Future<dynamic> updatecart(
-    String id,
-    String quantity,
-    String subtotal,
-    String delivery,
-    String total,
+  Future<dynamic> updatecartItems(
+    String userId,
+    List<Map<String, dynamic>> items,
   ) async {
     var client = http.Client();
-    var apiurl = Uri.parse(LLinks.updatecart);
-    var response = await client.post(
-      apiurl,
-      headers: <String, String>{
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: jsonEncode({
-        'id': id,
-        'quantity': quantity,
-        'subtotal': subtotal,
-        'delivery': delivery,
-        'total': total,
-      }),
-    );
-    var responseBody = json.decode(response.body);
-    if (response.statusCode == 200) {
-      return responseBody;
-    } else {
-      throw Exception('Error${responseBody['message']}');
+    try {
+      var apiurl = Uri.parse(LLinks.updatecart);
+      var response = await client.post(
+        apiurl,
+        headers: <String, String>{
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: jsonEncode({'userId': userId, 'items': items}),
+      );
+
+      var responseBody = json.decode(response.body);
+      if (response.statusCode == 200) {
+        return responseBody;
+      } else {
+        throw Exception('Error: ${responseBody['message']}');
+      }
+    } finally {
+      client.close();
     }
   }
-
-  
 }
