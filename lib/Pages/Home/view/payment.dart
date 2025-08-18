@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
@@ -23,7 +24,8 @@ class _PaymentState extends State<Payment> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<Dasboardprovider>();
-      provider.loadCart();
+      final userId = context.read<Authprovider>().userid ?? '';
+      provider.loadCart(userId);
       provider.paymentmethod('UPI');
       provider.selectionUpiMethod('Paypal');
     });
@@ -91,7 +93,8 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ Subtotal',
+                                text:
+                                    "₹  ${paymentmodel.getSubtotal().toStringAsFixed(2)}",
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
@@ -110,7 +113,8 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ Delivery',
+                                text:
+                                    "₹  ${paymentmodel.getDelivery().toStringAsFixed(2)}",
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),
@@ -129,7 +133,7 @@ class _PaymentState extends State<Payment> {
                                 color: AppColors.greyBackground,
                               ),
                               commonText(
-                                text: '₹ Total',
+                                text: "₹  ${paymentmodel.getTotal().toStringAsFixed(2)}",
                                 fontSize: TSizes.fontSizeMd,
                                 color: AppColors.greyBackground,
                               ),

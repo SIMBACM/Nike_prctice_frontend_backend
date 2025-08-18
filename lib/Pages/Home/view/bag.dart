@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
+import 'package:nike_prctice/Pages/Home/view/addresspage.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
+import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:nike_prctice/widgets/buttonwidgets.dart';
 import 'package:nike_prctice/widgets/containerwidget.dart';
 import 'package:nike_prctice/widgets/textwidget.dart';
@@ -19,15 +22,16 @@ class _BagpageState extends State<Bagpage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<Dasboardprovider>().loadCart();
+      final userId = context.read<Authprovider>().userid ?? '';
+      context.read<Dasboardprovider>().loadCart(userId);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Dasboardprovider>(
-      builder: (context, cartmodel, child) => Scaffold(
+    return Consumer2<Dasboardprovider, Authprovider>(
+      builder: (context, cartmodel, Cart2model, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.secondary,
           automaticallyImplyLeading: false,
@@ -132,13 +136,21 @@ class _BagpageState extends State<Bagpage> {
                               SizedBox(height: TSizes.defaultSpace),
                               counterWidget(
                                 onDelete: () {
+                                  final itemtitle = cartmodel.cart[index].title;
                                   cartmodel.decrement(index);
+                                  cartmodel.sendValuesToDecreaseCart(
+                                    context,
+                                    Cart2model.userid.toString(),
+                                    itemtitle,
+                                  );
                                 },
                                 onIncrement: () {
                                   cartmodel.increment(index);
-                                  cartmodel.sendValuesToUpdateCart(
+                                  cartmodel.sendvaluestoupdatecart(
                                     context,
-                                    widget.userId.toString(),
+                                    Cart2model.userid.toString(),
+                                    cartmodel.cart[index].title,
+                                    cartmodel.cart[index].quantity,
                                   );
                                 },
                                 count: cartmodel.cart[index].quantity,
@@ -152,7 +164,7 @@ class _BagpageState extends State<Bagpage> {
                                   children: [
                                     commonText(
                                       text:
-                                          "MRP: ${(cartmodel.cart[index].price)}",
+                                          "MRP: ${(cartmodel.getSubtotal().toStringAsFixed(2))}",
                                       fontSize: TSizes.fontSizeMd,
                                       fontWeight: TSizes.medium,
                                     ),
@@ -192,7 +204,10 @@ class _BagpageState extends State<Bagpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             commonText(text: 'Subtotal'),
-                            commonText(text: '₹ Subtotal'),
+                            commonText(
+                              text:
+                                  '₹ ${cartmodel.getSubtotal().toStringAsFixed(2)}',
+                            ),
                           ],
                         ),
                         SizedBox(height: TSizes.defaultSpace),
@@ -200,7 +215,10 @@ class _BagpageState extends State<Bagpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             commonText(text: 'Delivery'),
-                            commonText(text: '₹ Delivery'),
+                            commonText(
+                              text:
+                                  '₹ ${cartmodel.getDelivery().toStringAsFixed(2)}',
+                            ),
                           ],
                         ),
                         SizedBox(height: TSizes.defaultSpace),
@@ -208,7 +226,10 @@ class _BagpageState extends State<Bagpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             commonText(text: 'Total'),
-                            commonText(text: '₹ Total'),
+                            commonText(
+                              text:
+                                  '₹ ${cartmodel.getTotal().toStringAsFixed(2)}',
+                            ),
                           ],
                         ),
                         SizedBox(height: 50),
@@ -222,7 +243,7 @@ class _BagpageState extends State<Bagpage> {
                     backgroundColor: AppColors.backgroundDark,
                     width: 336,
                     onPressed: () {
-                      // cartmodel.sendValuesToUpdateCart(context);
+                      NavigationUtil.push(context, Addresspage());
                     },
                   ),
                   SizedBox(height: 100),

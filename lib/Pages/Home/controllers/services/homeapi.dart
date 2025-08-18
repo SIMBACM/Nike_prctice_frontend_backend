@@ -41,6 +41,7 @@ class ProductApiServices {
   // frontend req for store favourites
 
   Future<dynamic> storeFavourites(
+    String userId,
     String title,
     String category,
     String price,
@@ -55,6 +56,7 @@ class ProductApiServices {
         "Content-Type": "application/json; charset=UTF-8",
       },
       body: jsonEncode({
+        'userId': userId,
         'title': title,
         'category': category,
         'price': price,
@@ -72,10 +74,12 @@ class ProductApiServices {
 
   // frontend req for Fetch favourites
 
-  Future<List<Welcome>> fetchFavourites() async {
+  Future<List<Welcome>> fetchFavourites(String userId) async {
     var client = http.Client();
-    var apiurl = Uri.parse(LLinks.getFav);
+    var links = LLinks();
+    var apiurl = Uri.parse(links.getFav(userId));
     final response = await client.get(apiurl);
+    print('Raw response: ${response.body}');
     var jsonBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
       final List data = jsonBody['data'] is List
@@ -89,6 +93,7 @@ class ProductApiServices {
 
   // frontend req for store to cart
   Future<dynamic> storetocart(
+    String userId,
     String title,
     String thumbnail,
     String category,
@@ -96,6 +101,9 @@ class ProductApiServices {
     String tags,
     String size,
     int quantity,
+    String subtotal,
+    String delivery,
+    String total,
   ) async {
     var client = http.Client();
     var apiurl = Uri.parse(LLinks.postcart);
@@ -105,6 +113,7 @@ class ProductApiServices {
         "Content-Type": "application/json; charset=UTF-8",
       },
       body: jsonEncode({
+        'userId': userId,
         'title': title,
         'category': category,
         'price': price,
@@ -112,6 +121,9 @@ class ProductApiServices {
         'tags': tags,
         'size': size,
         'quantity ': quantity,
+        'subtotal': subtotal,
+        'delivery': delivery,
+        'total': total,
       }),
     );
     var responseBody = json.decode(response.body);
@@ -123,9 +135,10 @@ class ProductApiServices {
   }
 
   // frontend req for fetch from cart
-  Future<List<Welcome>> fetchCartproducts() async {
+  Future<List<Welcome>> fetchCartproducts(String userId) async {
     var client = http.Client();
-    var apiurl = Uri.parse(LLinks.getcart);
+    var links = LLinks();
+    var apiurl = Uri.parse(links.getcart(userId));
     final response = await client.get(apiurl);
     var jsonBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -216,30 +229,55 @@ class ProductApiServices {
   }
 
   // frontend calling for update cart
-
-  Future<dynamic> updatecartItems(
+  Future<dynamic> updatecart(
     String userId,
-    List<Map<String, dynamic>> items,
+    String title,
+    double subtotal,
+    double delivery,
+    double total,
+    int quantity,
   ) async {
     var client = http.Client();
-    try {
-      var apiurl = Uri.parse(LLinks.updatecart);
-      var response = await client.post(
-        apiurl,
-        headers: <String, String>{
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-        body: jsonEncode({'userId': userId, 'items': items}),
-      );
+    var apiurl = Uri.parse(LLinks.updatecart);
+    var response = await client.post(
+      apiurl,
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: jsonEncode({
+        'userId': userId,
+        'title': title,
+        'subtotal': subtotal,
+        'delivery': delivery,
+        'total': total,
+        'quantity': quantity,
+      }),
+    );
+    var responseBody = json.decode(response.body);
+    if (response.statusCode == 200) {
+      return responseBody;
+    } else {
+      throw Exception('Failed to store${responseBody['message']}');
+    }
+  }
 
-      var responseBody = json.decode(response.body);
-      if (response.statusCode == 200) {
-        return responseBody;
-      } else {
-        throw Exception('Error: ${responseBody['message']}');
-      }
-    } finally {
-      client.close();
+  // Decrease quantity
+
+  Future<dynamic> decreasecart(String userId, String title) async {
+    var client = http.Client();
+    var apiurl = Uri.parse(LLinks.decreasecart);
+    var response = await client.post(
+      apiurl,
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: jsonEncode({'userId': userId, 'title': title}),
+    );
+    var responseBody = json.decode(response.body);
+    if (response.statusCode == 200) {
+      return responseBody;
+    } else {
+      throw Exception('Failed to store${responseBody['message']}');
     }
   }
 }

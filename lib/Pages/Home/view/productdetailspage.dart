@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
 import 'package:nike_prctice/Pages/Home/view/fulldetails.dart';
@@ -16,8 +17,8 @@ class Productdetailspage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Dasboardprovider>(
-      builder: (context, productpagemodel, child) => Scaffold(
+    return Consumer2<Dasboardprovider, Authprovider>(
+      builder: (context, productpagemodel, product2model, child) => Scaffold(
         backgroundColor: AppColors.secondary,
         appBar: AppBar(title: Text(product.title)),
         body: SingleChildScrollView(
@@ -30,6 +31,7 @@ class Productdetailspage extends StatelessWidget {
                   onAddToCart: () {
                     productpagemodel.sendvaluestocartapi(
                       context,
+                      product2model.userid ?? "",
                       product.title,
                       product.category,
                       product.price.toString(),
@@ -264,19 +266,6 @@ class Productdetailspage extends StatelessWidget {
                                           product: product,
                                         ),
                                       ),
-                                    );
-                                  },
-                                  onPressed: () {
-                                    productpagemodel.toggleFavoriteStatus(
-                                      product,
-                                    );
-                                    productpagemodel.sendvaluestofavapi(
-                                      context,
-                                      product.title,
-                                      product.category,
-                                      product.price.toString(),
-                                      product.thumbnail,
-                                      product.isFavorite,
                                     );
                                   },
                                 );

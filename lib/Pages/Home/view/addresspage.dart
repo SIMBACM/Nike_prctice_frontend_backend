@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike_prctice/Pages/Auth/controllers/authprovider.dart';
 import 'package:nike_prctice/Pages/Home/controllers/dasboardprovider.dart';
-import 'package:nike_prctice/Pages/Home/view/ordersummary.dart';
+import 'package:nike_prctice/Pages/Home/view/payment.dart';
 import 'package:nike_prctice/constants/Sizes.dart';
 import 'package:nike_prctice/constants/colors.dart';
 import 'package:nike_prctice/constants/images.dart';
@@ -48,19 +48,12 @@ class Addresspage extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                     tappableImage(
-                      imagePath: Images.ordersummary,
-                      width: 96,
-                      height: 47,
-                      onTap: () {
-                        NavigationUtil.push(context, Ordersummary());
-                      },
-                      fit: BoxFit.contain,
-                    ),
-                    tappableImage(
                       imagePath: Images.payment,
                       width: 54,
                       height: 47,
-                      onTap: () {},
+                      onTap: () {
+                        NavigationUtil.push(context, Payment());
+                      },
                       fit: BoxFit.contain,
                     ),
                   ],

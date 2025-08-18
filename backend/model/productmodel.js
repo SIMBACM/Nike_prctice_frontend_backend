@@ -48,6 +48,10 @@ const ProductSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Authentication',
+    }
 });
 
 const ProductModel = mongoose.model('Product', ProductSchema);

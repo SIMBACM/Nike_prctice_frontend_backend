@@ -4,6 +4,7 @@ import 'package:nike_prctice/Pages/Auth/view/signupart3.dart';
 import 'package:nike_prctice/Pages/Auth/view/signuppart2.dart';
 import 'package:nike_prctice/Pages/Home/view/Maindashboard.dart';
 import 'package:nike_prctice/constants/colors.dart';
+import 'package:nike_prctice/local_storage/storage_helper.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
 
 class Authprovider extends ChangeNotifier {
@@ -11,6 +12,8 @@ class Authprovider extends ChangeNotifier {
 
   String? _fetchedusername;
   String? get fetchedusername => _fetchedusername;
+  String? _userid;
+  String? get userid => _userid;
   DateTime? selecteddate;
   int? selectedday;
   int? selectedmonth;
@@ -105,6 +108,11 @@ class Authprovider extends ChangeNotifier {
     }
   }
 
+  void setUserId(String? id) {
+    _userid = id;
+    notifyListeners();
+  }
+
   // Obscuring
   void toggleabilitypassword() {
     ispasswordObscured = !ispasswordObscured;
@@ -172,8 +180,13 @@ class Authprovider extends ChangeNotifier {
       final response = await PostApiServices().signin(emailcontroller.text);
       if (response['status'] == 'success') {
         final String username = response['Firstname'] ?? '';
+        final String userId = response['userId'] ?? '';
         setFetchedusername(username);
-        print("signined in with username:$username");
+        setUserId(userId);
+        if (userId.isNotEmpty) {
+          await StorageHelper.saveUserId(userId);
+        }
+        print("signined in with username:$username and userid:$userId");
         MessengerUtil.showSnackBar(
           context,
           'Signin Successfully',
@@ -262,7 +275,7 @@ class Authprovider extends ChangeNotifier {
   }
 
   //  global fetching username
-  void setFetchedusername(String? username){
+  void setFetchedusername(String? username) {
     _fetchedusername = username;
     notifyListeners();
   }

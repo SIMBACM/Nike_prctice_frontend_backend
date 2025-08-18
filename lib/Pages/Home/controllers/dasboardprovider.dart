@@ -4,9 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:nike_prctice/Pages/Home/controllers/services/homeapi.dart';
 import 'package:nike_prctice/Pages/Home/models/addressmodel.dart';
 import 'package:nike_prctice/Pages/Home/models/productmodel.dart';
-import 'package:nike_prctice/Pages/Home/view/addresspage.dart';
 import 'package:nike_prctice/Pages/Home/view/bag.dart';
-import 'package:nike_prctice/Pages/Home/view/ordersummary.dart';
+import 'package:nike_prctice/Pages/Home/view/payment.dart';
 import 'package:nike_prctice/utils/commonutils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -41,6 +40,22 @@ class Dasboardprovider extends ChangeNotifier {
     selectedindex = index;
   }
 
+  double getSubtotal() {
+    double total = 0;
+    for (var item in cart) {
+      total += item.price * item.quantity;
+    }
+    return total;
+  }
+
+  double getDelivery() {
+    return 1250.0;
+  }
+
+  double getTotal() {
+    return getSubtotal() + getDelivery();
+  }
+
   // function for paymentmethods
 
   void paymentmethod(String value) {
@@ -55,10 +70,13 @@ class Dasboardprovider extends ChangeNotifier {
   }
 
   void decrement(int index) {
-    if ((cart[index].quantity ?? 0) > 0) {
+    if ((cart[index].quantity ?? 0) > 1) {
       cart[index].quantity = (cart[index].quantity ?? 0) - 1;
-      notifyListeners();
+    } else {
+      // Remove the item if quantity reaches 0
+      cart.removeAt(index);
     }
+    notifyListeners();
   }
 
   // bottom navigation function
@@ -109,11 +127,6 @@ class Dasboardprovider extends ChangeNotifier {
     return selectedsize == size;
   }
 
-  // get delivery
-  double getDelivery() {
-    return 1250.0;
-  }
-
   // Load products from api function
   Future<void> loadproducts() async {
     isLoading = true;
@@ -121,14 +134,7 @@ class Dasboardprovider extends ChangeNotifier {
 
     try {
       final fetchedProducts = await ProductApiServices().fetchProducts();
-      final favList = await ProductApiServices()
-          .fetchFavourites(); // your API call
-
-      final favIds = favList.map((f) => f.id).toSet();
-      products = fetchedProducts.map((p) {
-        p.isFavorite = favIds.contains(p.id);
-        return p;
-      }).toList();
+      products = fetchedProducts;
     } catch (e) {
       print("Error loading products: $e");
     }
@@ -138,17 +144,25 @@ class Dasboardprovider extends ChangeNotifier {
   }
 
   // Loading favourites
-  Future<void> loadFavoirites() async {
+  Future<void> loadFavoirites(String userId) async {
+    isLoading = true;
+    notifyListeners();
+
     try {
-      final data = await ProductApiServices().fetchFavourites();
+      final data = await ProductApiServices().fetchFavourites(userId);
       print('Fetched ${data.length} products');
-      favorites = data;
-      isLoading = false;
-      notifyListeners();
+
+      // Mark all fetched products as favorites
+      favorites = data.map((p) {
+        p.isFavorite = true;
+        return p;
+      }).toList();
     } catch (e) {
-      print('Error fetching products:$e');
+      print('Error fetching products: $e');
+      favorites = []; // Ensure favorites list is empty on error
+    } finally {
       isLoading = false;
-      notifyListeners();
+      notifyListeners(); // Always notify listeners
     }
   }
 
@@ -170,6 +184,7 @@ class Dasboardprovider extends ChangeNotifier {
   // Function for storing favourites
   void sendvaluestofavapi(
     BuildContext context,
+    String userId,
     String title,
     String category,
     String price,
@@ -178,6 +193,7 @@ class Dasboardprovider extends ChangeNotifier {
   ) async {
     try {
       final response = await ProductApiServices().storeFavourites(
+        userId,
         title,
         category,
         price,
@@ -196,6 +212,7 @@ class Dasboardprovider extends ChangeNotifier {
   // Function for storing into cart
   void sendvaluestocartapi(
     BuildContext context,
+    String userId,
     String title,
     String category,
     String price,
@@ -205,7 +222,13 @@ class Dasboardprovider extends ChangeNotifier {
     int quantity,
   ) async {
     try {
+      final priceDouble = double.parse(price);
+
+      final subtotal = priceDouble * quantity;
+      final delivery = getDelivery();
+      final total = subtotal + delivery;
       final response = await ProductApiServices().storetocart(
+        userId,
         title,
         thumbnail,
         category,
@@ -213,6 +236,9 @@ class Dasboardprovider extends ChangeNotifier {
         tags,
         size,
         quantity,
+        subtotal.toStringAsFixed(2),
+        delivery.toStringAsFixed(2),
+        total.toStringAsFixed(2),
       );
       if (response['message'] == 'Added to Cart') {
         print(response);
@@ -225,16 +251,19 @@ class Dasboardprovider extends ChangeNotifier {
   }
 
   // Funtion for load cart
-  Future<void> loadCart() async {
+  Future<void> loadCart(String userId) async {
     try {
-      final data = await ProductApiServices().fetchCartproducts();
-      print('Fetched ${data.length} products');
-      cart = data;
-      isLoading = false;
+      isLoading = true; // Start loading
       notifyListeners();
+
+      final data = await ProductApiServices().fetchCartproducts(userId);
+      print('Fetched ${data.length} products');
+
+      cart = data; // Assign fetched cart data
     } catch (e) {
-      print('Error fetching products:$e');
-      isLoading = false;
+      print('Error fetching products: $e');
+    } finally {
+      isLoading = false; // Stop loading
       notifyListeners();
     }
   }
@@ -303,7 +332,7 @@ class Dasboardprovider extends ChangeNotifier {
       if (response['message'] == 'Address saved successfully') {
         print(response);
         MessengerUtil.showSnackBar(context, 'Address completed');
-        NavigationUtil.push(context, Ordersummary());
+        NavigationUtil.push(context, Payment());
       }
     } catch (e) {
       MessengerUtil.showSnackBar(context, 'Failed to add $e');
@@ -326,34 +355,47 @@ class Dasboardprovider extends ChangeNotifier {
     }
   }
 
-  void sendValuesToUpdateCart(BuildContext context, String userId) async {
+  // Increase quantity
+  void sendvaluestoupdatecart(
+    BuildContext context,
+    String userId,
+    String title,
+    int quantity,
+  ) async {
+    final subtotal = getSubtotal();
+    final delivery = getDelivery();
+    final total = getTotal();
     try {
-      final items = cart.map((item) {
-        final qty = item.quantity;
-        final itemSubtotal = item.price * qty;
-
-        return {
-          'id': item.id,
-          'price': item.price,
-          'quantity': qty,
-          'subtotal': itemSubtotal,
-          'delivery': getDelivery(),
-          'total': itemSubtotal + getDelivery(),
-        };
-      }).toList();
-
-      final response = await ProductApiServices().updatecartItems(
+      final response = await ProductApiServices().updatecart(
         userId,
-        items,
+        title,
+        subtotal,
+        delivery,
+        total,
+        quantity,
       );
-
-      if (response['message'] == 'Cart items updated successfully') {
+      if (response['message'] == 'Cart updated') {
         print(response);
-        NavigationUtil.push(context, Addresspage());
       }
     } catch (e) {
-      print(e);
-      MessengerUtil.showSnackBar(context, '$e');
+      MessengerUtil.showSnackBar(context, 'Failed to add $e');
     }
+  }
+
+  void sendValuesToDecreaseCart(
+    BuildContext context,
+    String userId,
+    String title,
+  ) async {
+    try {
+      final response = await ProductApiServices().decreasecart(userId, title);
+
+      if (response['message'] == 'Cart item removed') {
+        print(response);
+      }
+    } catch (e) {
+      MessengerUtil.showSnackBar(context, 'Failed to decrease: $e');
+    }
+    notifyListeners();
   }
 }

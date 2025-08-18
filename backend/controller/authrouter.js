@@ -62,7 +62,7 @@ router.post('/signin', async (req, res) => {
         if (!data) {
             return res.status(404).json({ msg: "Enter a valid email" })
         }
-        return res.status(200).json({ status: "success", Firstname: data.Firstname })
+        return res.status(200).json({ status: "success", Firstname: data.Firstname, userId: data._id })
     } catch (e) {
         console.error(e);
         res.status(500).json({ message: 'Server error', e });
@@ -101,7 +101,7 @@ router.post('/email-verify-otp', async (req, res) => {
                 }
             }
             delete otpStore[sEmail];
-            return res.status(200).json({ status: "success", msg: "OTP verified." });
+            return res.status(200).json({ status: "success", msg: "OTP verified.", userId: user._id, Email: user.Email });
         }
         else {
             return res.status(400).json({ msg: "Invalid OTP." });
@@ -142,7 +142,10 @@ router.post('/signup', async (req, res) => {
             return res.status(404).json({ status: 'error', msg: 'User not found for the given email' });
         }
 
-        return res.status(200).json({ status: 'success' });
+        return res.status(200).json({
+            status: 'success', userId: updatedUser._id,        
+            Firstname: updatedUser.Firstname
+        });
 
     } catch (err) {
         console.error(err.message);

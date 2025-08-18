@@ -63,6 +63,10 @@ const CartSchema = new mongoose.Schema({
     },
     total: {
         type: String
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Authentication'
     }
 });
 

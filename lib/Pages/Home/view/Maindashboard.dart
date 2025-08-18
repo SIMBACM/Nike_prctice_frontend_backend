@@ -112,6 +112,7 @@ class _MaindashboardState extends State<Maindashboard> {
                               dasboadmodel.toggleFavoriteStatus(product);
                               dasboadmodel.sendvaluestofavapi(
                                 context,
+                                authmodel.userid ?? '',
                                 product.title,
                                 product.category,
                                 product.price.toString(),
